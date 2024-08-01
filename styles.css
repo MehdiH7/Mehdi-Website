@@ -1,0 +1,456 @@
+:root {
+    --main-font-family: 'Fira Code', monospace;
+    --main-bg-color: #f8f9fa;
+    --main-text-color: #333;
+    --primary-color: #1a73e8;
+    --secondary-text-color: #888;
+    --overlay-bg-color: rgba(255, 255, 255, 0.7);
+    --overlay-blur: blur(10px);
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --border-radius: 10px;
+    --transition: 0.3s;
+}
+
+body {
+    font-family: var(--main-font-family);
+    margin: 0;
+    padding: 0;
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+header {
+    text-align: center;
+    padding: 50px 20px;
+    margin-top: 100px;
+}
+
+header h2 {
+    font-size: 1.2em;
+    color: var(--secondary-text-color);
+}
+
+header h1 {
+    font-size: 2.5em;
+    color: var(--primary-color);
+}
+
+header p {
+    font-size: 1em;
+    color: #555;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.top-menu {
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--overlay-bg-color);
+    backdrop-filter: var(--overlay-blur);
+    box-shadow: var(--box-shadow);
+    border-radius: 50px;
+    max-width: 1200px;
+    top: 10px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: 1000;
+    width: 35%;
+}
+
+.top-menu ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+    height: 1.5em;
+}
+
+.top-menu ul li {
+    display: inline;
+}
+
+.top-menu ul li a {
+    text-decoration: none;
+    color: var(--main-text-color);
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 20px;
+    transition: background-color var(--transition), color var(--transition);
+}
+
+.top-menu ul li a:hover, .top-menu ul li a:focus {
+    background-color: #e0e0e0;
+    color: #000;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    width: 100%;
+    padding-bottom: 50px;
+}
+
+.profile-section {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+
+.profile-card {
+    background: rgba(26, 115, 232, 0.7);
+    backdrop-filter: var(--overlay-blur);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 20px;
+    text-align: center;
+    flex: 1;
+    color: white;
+    max-width: 400px;
+}
+
+.profile-card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.profile-card p {
+    font-size: 1.5em;
+    margin: 20px 0;
+}
+
+.profile-card button {
+    background-color: #ffffff;
+    color: var(--primary-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color var(--transition);
+}
+
+.profile-card button:hover {
+    background-color: #155ab6;
+    color: #ffffff;
+}
+
+.services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex: 2;
+    max-width: 800px;
+}
+
+.service-card {
+    background: var(--overlay-bg-color);
+    backdrop-filter: var(--overlay-blur);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 20px;
+    text-align: center;
+    flex: 1;
+    min-width: 200px;
+    margin: 10px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.service-card i {
+    margin-bottom: 15px;
+    color: var(--secondary-text-color);
+}
+
+.service-card h3 {
+    font-size: 1.5em;
+    margin: 10px 0;
+    color: var(--primary-color);
+}
+
+.service-card a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 10px;
+    transition: color var(--transition);
+}
+
+.service-card a:hover {
+    color: #ffcc00;
+}
+
+.service-card::after {
+    content: "";
+    width: 100%;
+    height: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.service-card.graphic-design::after {
+    background-color: #f39c12;
+}
+
+.service-card.web-design::after {
+    background-color: #00a8ff;
+}
+
+.service-card.software::after {
+    background-color: #2980b9;
+}
+
+.service-card.application::after {
+    background-color: #f1c40f;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1100;
+    transition: left var(--transition) ease;
+}
+
+.overlay-content {
+    position: relative;
+    width: 80%;
+    max-width: 600px;
+    background: var(--overlay-bg-color);
+    backdrop-filter: var(--overlay-blur);
+    padding: 20px;
+    margin: 50px auto;
+    border-radius: var(--border-radius);
+    overflow-y: auto;
+    height: 80%;
+}
+
+.overlay-content .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    z-index: 1200;
+}
+
+.content-section {
+    display: none;
+}
+
+.content-section.active {
+    display: block;
+}
+
+.social-icons {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.social-icons a {
+    text-decoration: none;
+    color: #fff;
+    background-color: var(--main-text-color);
+    padding: 10px;
+    border-radius: 50%;
+    transition: background-color var(--transition);
+}
+
+.social-icons a:hover {
+    background-color: #555;
+}
+
+.social-icons i {
+    font-size: 20px;
+}
+
+.filters {
+    margin-bottom: 20px;
+}
+
+.filters select {
+    padding: 10px;
+    font-size: 1em;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.content-section.experience ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.content-section.experience ul ul {
+    list-style-type: circle;
+    margin-left: 20px;
+}
+
+.content-section.experience strong {
+    font-weight: bold;
+}
+
+#overlay-circle {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: #615EFC;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 1.5s ease, height 1.5s ease;
+    z-index: 1000;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--main-font-family);
+    font-size: 2em;
+}
+
+#overlay-circle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: #7E8EF1; /* The background color of your page */
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 1.5s ease, height 1.5s ease;
+    z-index: 1001;
+}
+
+#loading-text {
+    position: absolute;
+    color: white;
+    font-family: var(--main-font-family);
+    font-size: 2em;
+    z-index: 1002;
+}
+
+#overlay-circle.expanding {
+    width: 200vw;
+    height: 200vw;
+}
+
+#overlay-circle.expanding::after {
+    width: 50vw; /* Adjust size for the hole */
+    height: 50vw; /* Adjust size for the hole */
+}
+
+.hidden {
+    display: none;
+}
+
+#main-content.visible {
+    display: block;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+footer {
+    text-align: center;
+    padding: 10px 20px;
+    margin-top: 20px;
+}
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 768px) {
+    .top-menu {
+        width: 85%;
+    }
+    
+    .top-menu ul {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+
+    .top-menu ul li a {
+        font-size: 0.67em;
+        padding: 5px 1px;
+    }
+
+    .profile-section {
+        flex-direction: column;
+    }
+
+    .services {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-card {
+        width: 80%;
+    }
+
+    .profile-card,
+    .service-card {
+        max-width: 90%;
+        margin: 10px auto;
+    }
+
+    .service-card {
+        width: 80%;
+    }
+
+    .overlay-content {
+        width: 80%;
+        height: 90%;
+        margin: 20px;
+    }
+
+    .social-icons {
+        position: relative;
+        flex-direction: row;
+        justify-content: center;
+        bottom: 0;
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .social-icons a {
+        background-color: var(--main-text-color);
+    }
+
+    .overlay-active .top-menu {
+        display: none;
+    }
+}
+
+/* Hide the menu when overlay is active */
+.overlay-active .top-menu {
+    display: none;
+}

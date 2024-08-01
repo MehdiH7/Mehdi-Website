@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mehdi Houshmand</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="mehdi3.jpg" type="image/x-icon">
+</head>
+
+
+<body>
+    <div id="overlay-circle">
+        <div id="loading-text"><img src="mehdi3.jpg" alt="" style="border-radius:50%; width: 250px;"></div>
+    </div>
+    <div id="main-content" class="hidden">
+        <nav class="top-menu">
+            <ul>
+                <li><a href="https://mehdi.cam" data-content="home">Home</a></li>
+                <li><a href="#" data-content="apps">Apps</a></li>
+                <li><a href="#" data-content="projects">Publications</a></li>
+                <li><a href="#" data-content="experience">Experience</a></li>
+                <li><a href="#" data-content="contact">Contact Me</a></li>
+            </ul>
+        </nav>
+
+        <header>
+            <h2>A BIT ABOUT ME</h2>
+            <h1>Who Am I?</h1>
+            <p>Hi, I'm Mehdi Houshmand. I am a computer science enthusiast with a background in mathematical modeling,
+                artificial
+                intelligence, and information technology, aiming to expand my knowledge through a PhD program. With a
+                Master’s
+                degree in Applied Computer and Information Technology, I have developed practical skills in artificial
+                intelligence,
+                machine learning, web development, and data analytics. I am eager to advance these skills and explore
+                new avenues of
+                research in the field.</p>
+        </header>
+
+        <main>
+            <div class="profile-section">
+                <div class="profile-card">
+                    <img src="mehdi3.jpg" alt="Your Photo">
+                    <p>I am happy to know you that 300+ projects done successfully!</p>
+                    <button data-content="apps">Learn More</button>
+                </div>
+                <div class="services">
+                    <div class="service-card graphic-design" data-content="projects">
+                        <i class="fas fa-book fa-3x"></i>
+                        <h3>Publications</h3>
+                        <a href="#" data-content="projects">MORE</a>
+                    </div>
+                    <div class="service-card web-design" data-content="apps">
+                        <i class="fas fa-cogs fa-3x"></i>
+                        <h3>Softwares</h3>
+                        <a href="#" data-content="apps">MORE</a>
+                    </div>
+                    <div class="service-card software" data-content="web-design">
+                        <i class="fas fa-desktop fa-3x"></i>
+                        <h3>Web Design</h3>
+                        <a href="#" data-content="web-design">MORE</a>
+                    </div>
+                    <div class="service-card application" data-content="research-interests">
+                        <i class="fas fa-lightbulb fa-3x"></i>
+                        <h3>Research Interests</h3>
+                        <a href="#" data-content="research-interests">MORE</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="overlay" id="overlay">
+            <div class="overlay-content" id="overlay-content">
+                <button class="close-btn" id="close-btn">&times;</button>
+
+                <div id="apps" class="content-section apps">
+                    <h2>Apps</h2>
+                    <ul id="listing">
+                        <li>
+                            <h3>SoccerSum</h3>
+                            <p>Multimodal AI-Based Summarization and Storytelling for Soccer on Social Media</p>
+                            <p>Open source software</p>
+                            <a href="https://github.com/simula/SoccerSum" target="_blank">View on GitHub</a>
+                        </li>
+                        <li>
+                            <h3>PlayerTV</h3>
+                            <p>Creating Player-Specific Soccer Highlight Clips with PlayerTV</p>
+                            <p>Open source software</p>
+                            <a href="https://github.com/simula/PlayerTV/tree/main/GUI" target="_blank">View on
+                                GitHub</a>
+                        </li>
+                        <li>
+                            <h3>SmartCrop</h3>
+                            <p>AI-Based Cropping of Soccer Videos</p>
+                            <p>Closed source software</p>
+                            <a href="https://www.fopzasys.com" target="_blank">Prices at <a
+                                    href="https://www.forzasys.com" target="_blank">Forzasys</a></a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <div id="projects" class="content-section projects">
+                    <h2>Publications</h2>
+                    <div class="filters">
+                        <select id="year-filter">
+                            <option value="">Select Year</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2018">2018</option>
+                        </select>
+                        <select id="author-filter">
+                            <option value="">Select Author</option>
+                            <option value="Mehdi Houshmand Sarkhoosh">Mehdi Houshmand Sarkhoosh</option>
+                            <option value="Sushant Gautam">Sushant Gautam</option>
+                            <option value="Cise Midoglu">Cise Midoglu</option>
+                            <option value="Saeed Shafiee Sabet">Saeed Shafiee Sabet</option>
+                            <option value="Pål Halvorsen">Pål Halvorsen</option>
+                            <option value="Mohammad Majidi">Mohammad Majidi</option>
+                            <option value="Sayed Mohammad Majidi Dorcheh">Sayed Mohammad Majidi Dorcheh</option>
+                            <option value="Armen Ademian">Armen Ademian</option>
+                            <option value="Amirali Tabatabaei">Amirali Tabatabaei</option>
+                            <option value="Afshin Houshmand Sakhoosh">Afshin Houshmand Sakhoosh</option>
+                        </select>
+                    </div>
+                    <ul id="publication-list">
+                        <li data-year="2024"
+                            data-authors="Mehdi Houshmand Sarkhoosh, Sushant Gautam, Cise Midoglu, Saeed Shafiee Sabet, Pål Halvorsen">
+                            <h3>2024 Multimodal AI-Based Summarization and Storytelling for Soccer on Social Media</h3>
+                            <p>15th ACM Multimedia Systems Conference, in Bari, Italy - <a
+                                    href="https://doi.org/10.1145/3625468.3652197"
+                                    target="_blank">DOI:10.1145/3625468.3652197</a></p>
+                            <p>Authors: Mehdi Houshmand Sarkhoosh, Sushant Gautam, Cise Midoglu, Saeed Shafiee Sabet,
+                                and Pål Halvorsen</p>
+                        </li>
+                        <li data-year="2024"
+                            data-authors="Mehdi Houshmand Sarkhoosh, Sushant Gautam, Cise Midoglu, Saeed Shafiee Sabet, Pål Halvorsen">
+                            <h3>2024 The SoccerSum Dataset for Automated Detection, Segmentation, and Tracking of
+                                Objects on the Soccer Pitch</h3>
+                            <p>15th ACM Multimedia Systems Conference, in Bari, Italy - <a
+                                    href="https://doi.org/10.1145/3625468.3652180"
+                                    target="_blank">DOI:10.1145/3625468.3652180</a></p>
+                            <p>Authors: Mehdi Houshmand Sarkhoosh, Sushant Gautam, Cise Midoglu, Saeed Shafiee Sabet and
+                                Pål Halvorsen</p>
+                        </li>
+                        <li data-year="2024"
+                            data-authors="Sushant Gautam, Mehdi Houshmand Sarkhoosh, Jan Held, Cise Midoglu, Anthony Cioppa, Silvio Giancola, Vajira Thambawita, Michael A. Riegler, Pål Halvorsen, Mubarak Shah">
+                            <h3>2024 SoccerNet-Echoes: A Soccer Game Audio Commentary Dataset</h3>
+                            <p>preprint on arXiv - <a href="https://doi.org/10.48550/arXiv.2405.07354"
+                                    target="_blank">DOI:10.48550/arXiv.2405.07354</a></p>
+                            <p>Authors: Sushant Gautam, Mehdi Houshmand Sarkhoosh, Jan Held, Cise Midoglu, Anthony
+                                Cioppa, Silvio Giancola, Vajira Thambawita, Michael A. Riegler, Pål Halvorsen and
+                                Mubarak Shah</p>
+                        </li>
+                        <li data-year="2024"
+                            data-authors="Mehdi Houshmand Sarkhoosh, Sayed Mohammad Majidi Dorcheh, Cise Midoglu, Saeed Shafiee Sabet, Tomas Kupka, Dag Johansen, Michael A. Riegler, Pål Halvorsen">
+                            <h3>2024 AI-Based Cropping of Soccer Videos for Different Social Media Representations</h3>
+                            <p>30th International Conference on Multimedia Modelling in Amsterdam, Netherlands - <a
+                                    href="https://doi.org/10.1007/978-3-031-53302-0_22"
+                                    target="_blank">DOI:10.1007/978-3-031-53302-0_22</a></p>
+                            <p>Authors: Mehdi Houshmand Sarkhoosh, Sayed Mohammad Majidi Dorcheh, Cise Midoglu, Saeed
+                                Shafiee Sabet, Tomas Kupka, Dag Johansen, Michael A. Riegler and Pål Halvorsen</p>
+                        </li>
+                        <li data-year="2024"
+                            data-authors="Mohammad Majidi, Mehdi Houshmand Sarkhoosh, Cise Midoglu, Saeed S. Sabet, Tomas Kupka, Dag Johansen, Pål Halvorsen">
+                            <h3>2024 SmartCrop-H: AI-Based Cropping of Ice Hockey Videos</h3>
+                            <p>15th ACM Multimedia Systems Conference, in Bari, Italy - <a
+                                    href="https://doi.org/10.1145/3625468.3652195"
+                                    target="_blank">DOI:10.1145/3625468.3652195</a></p>
+                            <p>Authors: Mohammad Majidi, Mehdi Houshmand Sarkhoosh, Cise Midoglu, Saeed S. Sabet, Tomas
+                                Kupka, Dag Johansen and Pål Halvorsen</p>
+                        </li>
+                        <li data-year="2024"
+                            data-authors="Sayed Mohammad Majidi Dorcheh, Mehdi Houshmand Sarkhoosh, Cise Midoglu, Saeed Shafiee Sabet, Tomas Kupka, Dag Johansen, Michael A. Riegler, Pål Halvorsen">
+                            <h3>2024 AI-Based Cropping of Sport Videos using SmartCrop</h3>
+                            <p>International Journal of Semantic Computing - <a
+                                    href="https://doi.org/10.1142/S1793351X24450028"
+                                    target="_blank">DOI:10.1142/S1793351X24450028</a></p>
+                            <p>Authors: Sayed Mohammad Majidi Dorcheh, Mehdi Houshmand Sarkhoosh, Cise Midoglu, Saeed
+                                Shafiee Sabet, Tomas Kupka, Dag Johansen, Michael A. Riegler and Pål Halvorsen</p>
+                        </li>
+                        <li data-year="2024"
+                            data-authors="Håkon Maric Solberg, Mehdi Houshmand Sarkhoosh, Sushant Gautam, Saeed Shafiee Sabet, Pål Halvorsen, Cise Midoglu">
+                            <h3>2024 Demo: Creating Player-Specific Soccer Highlight Clips with PlayerTV</h3>
+                            <p>21st International Conference on Content-based Multimedia Indexing - DOI:Not received yet
+                            </p>
+                            <p>Authors: Håkon Maric Solberg, Mehdi Houshmand Sarkhoosh, Sushant Gautam, Saeed Shafiee
+                                Sabet, Pål Halvorsen and Cise Midoglu</p>
+                        </li>
+                        <li data-year="2024"
+                            data-authors="Cise Midoglu, Saeed Shafiee Sabet, Mehdi Houshmand Sarkhoosh, Mohammad Majidi, Sushant Gautam, Håkon Maric Solberg, Tomas Kupka, Pål Halvorsen">
+                            <h3>2024 AI-Based Sports Highlight Generation for Social Media</h3>
+                            <p>MHV 2024 ACM Mile High Video in Denver, USA - <a
+                                    href="https://doi.org/10.1145/3638036.3640799"
+                                    target="_blank">DOI:10.1145/3638036.3640799</a></p>
+                            <p>Authors: Cise Midoglu, Saeed Shafiee Sabet, Mehdi Houshmand Sarkhoosh, Mohammad Majidi,
+                                Sushant Gautam, Håkon Maric Solberg, Tomas Kupka and Pål Halvorsen</p>
+                        </li>
+                        <li data-year="2023"
+                            data-authors="Sayed Mohammad Majidi Dorcheh, Mehdi Houshmand Sarkhoosh, Cise Midoglu, Saeed Shafiee Sabet, Tomas Kupka, Dag Johansen, Michael A. Riegler, Pål Halvorsen">
+                            <h3>2023 SmartCrop: AI-Based Cropping of Soccer Videos</h3>
+                            <p>25th IEEE International Symposium on Multimedia in California, USA - <a
+                                    href="https://doi.org/10.1109/ISM59092.2023.00009"
+                                    target="_blank">DOI:10.1109/ISM59092.2023.00009</a></p>
+                            <p>Authors: Sayed Mohammad Majidi Dorcheh, Mehdi Houshmand Sarkhoosh, Cise Midoglu, Saeed
+                                Shafiee Sabet, Tomas Kupka, Dag Johansen, Michael A. Riegler and Pål Halvorsen</p>
+                        </li>
+                        <li data-year="2023"
+                            data-authors="Mehdi Houshmand Sarkhoosh, Sayed Mohammad Majidi Dorcheh, Sushant Gautam, Cise Midoglu, Saeed Shafiee Sabet, Pål Halvorsen">
+                            <h3>2023 Soccer on Social Media</h3>
+                            <p>Comparative Analysis of Social Media Strategies Used by European Soccer Leagues and
+                                Teams, preprint on arXiv - <a href="https://doi.org/10.48550/arXiv.2310.12328"
+                                    target="_blank">DOI:10.48550/arXiv.2310.12328</a></p>
+                            <p>Authors: Mehdi Houshmand Sarkhoosh, Sayed Mohammad Majidi Dorcheh, Sushant Gautam, Cise
+                                Midoglu, Saeed Shafiee Sabet and Pål Halvorsen</p>
+                        </li>
+                        <li data-year="2018"
+                            data-authors="Mehdi Houshmand Sarkhoosh, Armen Ademian, Amirali Tabatabaei">
+                            <h3>2018 Development of an advanced two dimensional structural models for the study of smart
+                                wing</h3>
+                            <p>3rd International Conference on Mechanical & Aerospace Engineering - K.N.Toosi University
+                                of Technology - <a href="https://civilica.com/doc/788903"
+                                    target="_blank">DOI:civilica.com/doc/788903</a></p>
+                            <p>Authors: Mehdi Houshmand Sarkhoosh, Armen Ademian, Amirali Tabatabaei</p>
+                        </li>
+                        <li data-year="2018" data-authors="Afshin Houshmand Sakhoosh, Mehdi Houshmand Sarkhoosh">
+                            <h3>2018 Evaluating the effect of irrigation with treated wastewater on vegetation (case
+                                study of the sewage treatment plant of SAIPA Automobile Company)</h3>
+                            <p>The 8th National Conference & Exhibition on Environmental Engineering - University of
+                                Tehran - <a href="https://civilica.com/doc/529214"
+                                    target="_blank">DOI:civilica.com/doc/529214</a></p>
+                            <p>Authors: Afshin Houshmand Sakhoosh, Mehdi Houshmand Sarkhoosh</p>
+                        </li>
+                    </ul>
+                </div>
+
+
+
+                <div id="experience" class="content-section experience">
+                    <h2>Experience</h2>
+                    <ul>
+                        <li>
+                            <strong>8/2023 – Now Developer Forzasys AS, Oslo Norway</strong>
+                            <ul>
+                                <li>As a Developer, I specialized in AI and machine learning model development, focusing
+                                    on creating innovative solutions for complex data analysis and predictive analytics.
+                                    My expertise extended to computer vision, where I designed and implemented
+                                    algorithms for image and video processing, enhancing decision-making processes.
+                                    Additionally, I was responsible for developing and maintaining robust APIs,
+                                    facilitating seamless integration of AI functionalities into various systems and
+                                    platforms.</li>
+                                <li>Skills: AI / Computer Vision / Machine Learning Models / API Development</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>6/2023 – 8/2023 AI & ML Summer Internship Forzasys AS, Oslo Norway</strong>
+                            <ul>
+                                <li>During my AI & ML Summer Internship, I gained hands-on experience in artificial
+                                    intelligence and machine learning, contributing to research and development projects
+                                    while learning advanced techniques in data analysis and algorithm design. This role
+                                    provided valuable insights into practical AI and ML applications, enhancing my
+                                    skills in predictive modeling and intelligent system development.</li>
+                                <li>Skills: AI / Computer Vision / Machine Learning Models / API Development</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>9/2023 – 1/2024 Teaching Assistant - MEK1000 Mathematics 1000 Oslo Metropolitan
+                                University, Oslo Norway</strong>
+                            <ul>
+                                <li>As a Teaching Assistant for Matematikk 1000 at Oslo Metropolitan University, I
+                                    focused on guiding students through complex mathematical concepts, including the use
+                                    of derivatives in dynamical systems, integrals in calculating quantities, and the
+                                    application of numerical methods for solving equations. My role also involved
+                                    teaching analytical methods for derivatives and antiderivatives, numerical
+                                    approximations, optimization techniques, and the implementation of algorithms in
+                                    mathematical problem-solving.</li>
+                                <li>Skills: Differential Equations / Numerical Analysis / Mathematical Optimization</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>1/2023 – 5/2023 Teaching Assistant - DAVE3705 Mathematics 4000 Oslo Metropolitan
+                                University, Oslo Norway</strong>
+                            <ul>
+                                <li>In the role of Teaching Assistant for Mathematics 4000, I provided comprehensive
+                                    academic support to students, focusing on advanced topics like ordinary and partial
+                                    differential equations, Laplace transforms, and Fourier series. This position
+                                    entailed both classroom assistance and external support, ensuring students’ thorough
+                                    understanding of complex mathematical concepts and effective application of
+                                    analytical skills.</li>
+                                <li>Skills: ODEs & PDEs / Fourier Analysis / Laplace Transforms</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>2015 – Now Freelance Web Developer AOTW</strong>
+                            <ul>
+                                <li>As a Freelance Web Developer, I specialized in creating and modifying visually
+                                    appealing and user-friendly websites, with a particular focus on WordPress plugin
+                                    development to enhance site functionality. My role involved collaborating with
+                                    clients to tailor solutions, ensuring optimal website performance and compatibility
+                                    across different browsers and devices.</li>
+                                <li>Skills: WordPress Theme Development / WordPress Plugin Development / PHP /
+                                    JavaScript</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <div id="contact" class="content-section contact">
+                    <h2>Contact Me</h2>
+                    <ul>
+                        <li>
+                            <a href="mailto:mehdi@forzasys.com">
+                                <i class="fas fa-envelope"></i> Email
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/Mehd7" target="_blank">
+                                <i class="fab fa-instagram"></i> Instagram
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/in/Mehdih7" target="_blank">
+                                <i class="fab fa-linkedin"></i> LinkedIn
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/Mehdih7" target="_blank">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://orcid.org/0009-0008-4616-4592" target="_blank">
+                                <i class="fab fa-orcid"></i> ORCID
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://scholar.google.com/citations?user=QHp7CtQAAAAJ" target="_blank">
+                                <i class="fas fa-graduation-cap"></i> Google Scholar
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+
+
+                <div id="publications" class="content-section publications">
+                    <h2>Publications</h2>
+                    <p>Content about publications goes here.</p>
+                </div>
+
+                <div id="softwares" class="content-section softwares">
+                    <h2>Softwares</h2>
+                    <p>Content about softwares goes here.</p>
+                </div>
+
+                <div id="web-design" class="content-section web-design">
+                    <h2>Web Design</h2>
+                    <p>Explore my portfolio and all the projects I have done in web design by visiting my <a
+                            href="https://mehdi.gatacamp.com/" target="_blank">web design portfolio</a>.</p>
+                </div>
+
+
+                <div id="research-interests" class="content-section research-interests">
+                    <h2>Research Interests</h2>
+                    <ul>
+                        <li>Artificial Intelligence (AI) in Sports and Healthcare</li>
+                        <li>Automatic Speech Recognition (ASR) Technologies</li>
+                        <li>Deep Learning for Natural Language Processing (NLP)</li>
+                        <li>Machine Learning Algorithms for Predictive Analytics</li>
+                        <li>Computer Vision and Image Processing</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="social-icons">
+            <a href="https://github.com/MehdiH7" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://scholar.google.com/citations?hl=en&user=QHp7CtQAAAAJ" target="_blank"><i
+                    class="fas fa-graduation-cap"></i></a>
+            <a href="https://linkedin.com/in/MehdiH7" target="_blank"><i class="fab fa-linkedin"></i></a>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 Mehdi Houshmand. All rights reserved.</p>
+        </footer>
+
+        <script src="scripts.js"></script>
+    </div>
+</body>
+
+</html>
