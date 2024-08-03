@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Color Extractor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="details">
+    <h1>Vibrant Color Extractor</h1>
+    <div id="image-upload-wrap">
+      <h3>Drag & drop your image here</h3>
+    </div>
+    <div class="file-upload-content">
+      <div id="image"></div>
+      <div class="colors">
+        <div>Vibrant<span class="swatch colorVibrant"></span><span class="colorHex hexVibrant">null</span></div>
+        <div>Muted<span class="swatch colorMuted"></span><span class="colorHex hexMuted">null</span></div>
+        <div>Dark Vibrant<span class="swatch colorDarkVibrant"></span><span class="colorHex hexDarkVibrant">null</span></div>
+        <div>Dark Muted<span class="swatch colorDarkMuted"></span><span class="colorHex hexDarkMuted">null</span></div>
+        <div>Light Vibrant<span class="swatch colorLightVibrant"></span><span class="colorHex hexLightVibrant">null</span></div>
+      </div>
+      <button type="button" onclick="removeUpload()" class="remove-image">Try New Image</button>
+    </div>
+  </div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vibrant.js/1.0.0/Vibrant.min.js'></script>
+    <script src="script.js"></script>
+</body>
+</html>

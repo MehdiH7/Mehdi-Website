@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeOverlay();
   initializeFilters();
   initializeLoadingAnimation();
+  setNightMode(); 
+  setInterval(setNightMode, 60000);
 });
 
 function initializeOverlay() {
@@ -73,4 +75,30 @@ function initializeLoadingAnimation() {
     overlayCircle.style.display = "none";
     mainContent.classList.add("visible");
   }, 1600);
+}
+
+function initializeLoadingAnimation() {
+  const overlayCircle = document.getElementById("overlay-circle");
+  const mainContent = document.getElementById("main-content");
+  const loadingText = document.getElementById("loading-text");
+
+  setTimeout(() => {
+    overlayCircle.classList.add("expanding");
+  }, 100);
+
+  setTimeout(() => {
+    overlayCircle.style.display = "none";
+    mainContent.classList.add("visible");
+  }, 1600);
+}
+
+function setNightMode() {
+  const currentHour = new Date().getHours();
+  const body = document.body;
+  
+  if (currentHour >= 20 || currentHour < 6) {
+    body.classList.add('night-mode');
+  } else {
+    body.classList.remove('night-mode');
+  }
 }
