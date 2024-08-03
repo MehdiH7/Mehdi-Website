@@ -3,7 +3,7 @@ name: Deploy Website
 on:
   push:
     branches:
-      - main  # Replace with your default branch if different
+      - master 
 
 jobs:
   ftp-deploy:
@@ -21,4 +21,4 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: ./  # The directory to upload
-        server-dir: /htdocs  # Replace with your FTP path
+        server-dir: /htdocs  # FTP path
