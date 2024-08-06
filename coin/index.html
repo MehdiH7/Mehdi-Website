@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Tracker</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.0.2"></script> <!-- Add this line -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="currency-selector">
+            <button id="usd-button" class="active" onclick="changeCurrency('USD')">USD</button>
+            <button id="gbp-button" onclick="changeCurrency('GBP')">GBP</button>
+            <button id="nok-button" onclick="changeCurrency('NOK')">NOK</button>
+        </div>
+        <div class="crypto-row">
+            <div class="crypto-column">
+                <div class="card">
+                    <h2>Bitcoin (BTC)</h2>
+                    <p id="bitcoin-price" class="price">$0.00</p>
+                    <p>1h Change: <span id="bitcoin-change-1h">0.00%</span></p>
+                    <p>24h Change: <span id="bitcoin-change-24h">0.00%</span></p>
+                    <p>7d Change: <span id="bitcoin-change-7d">0.00%</span></p>
+                    <p>30d Change: <span id="bitcoin-change-30d">0.00%</span></p>
+                    <p>60d Change: <span id="bitcoin-change-60d">0.00%</span></p>
+                    <p>90d Change: <span id="bitcoin-change-90d">0.00%</span></p>
+                    <p>Market Cap: <span id="bitcoin-market-cap">$0.00</span></p>
+                    <p>Volume (24h): <span id="bitcoin-volume-24h">$0.00</span></p>
+                    <p>Circulating Supply: <span id="bitcoin-circulating-supply">0</span></p>
+                    <p>Rank: <span id="bitcoin-rank">0</span></p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="bitcoinChart"></canvas>
+                </div>
+            </div>
+            <div class="crypto-column">
+                <div class="card">
+                    <h2>Ethereum (ETH)</h2>
+                    <p id="ethereum-price" class="price">$0.00</p>
+                    <p>1h Change: <span id="ethereum-change-1h">0.00%</span></p>
+                    <p>24h Change: <span id="ethereum-change-24h">0.00%</span></p>
+                    <p>7d Change: <span id="ethereum-change-7d">0.00%</span></p>
+                    <p>30d Change: <span id="ethereum-change-30d">0.00%</span></p>
+                    <p>60d Change: <span id="ethereum-change-60d">0.00%</span></p>
+                    <p>90d Change: <span id="ethereum-change-90d">0.00%</span></p>
+                    <p>Market Cap: <span id="ethereum-market-cap">$0.00</span></p>
+                    <p>Volume (24h): <span id="ethereum-volume-24h">$0.00</span></p>
+                    <p>Circulating Supply: <span id="ethereum-circulating-supply">0</span></p>
+                    <p>Rank: <span id="ethereum-rank">0</span></p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="ethereumChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>
