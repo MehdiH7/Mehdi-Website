@@ -96,3 +96,25 @@ body {
         font-size: 1.2em;
     }
 }
+
+
+
+/* Hover Effects */
+.currency-selector button:hover, .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+.chart-wrapper.enlarged {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    z-index: 999; 
+    width: 75%; 
+    height: 55%; 
+    background-color: rgb(238, 222, 193);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding:5%;
+}

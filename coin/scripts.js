@@ -3,7 +3,7 @@ const exchangeRateApiUrl = 'https://api.exchangerate-api.com/v4/latest/USD'; // 
 
 const MAX_POINTS = 50; 
 let currentCurrency = 'USD';
-let exchangeRates = { GBP: 0.79, NOK: 10.98 }; // Default rates
+let exchangeRates = { GBP: 0.75, NOK: 10.99 }; // Default rates
 const buyPriceNOK = 591922;
 const buyPriceUSD = buyPriceNOK / exchangeRates.NOK; // Convert to USD
 
@@ -40,10 +40,10 @@ const fetchExchangeRates = async () => {
     }
 };
 
-const storeData = (symbol, price) => {
+const storeData = (symbol, price, volume) => {
     let priceData = JSON.parse(localStorage.getItem(symbol)) || [];
     const timestamp = new Date().toISOString();
-    priceData.push({ timestamp, price });
+    priceData.push({ timestamp, price, volume });
 
     // Ensure we only keep the most recent MAX_POINTS
     if (priceData.length > MAX_POINTS) {
@@ -72,10 +72,19 @@ const calculateTrendLine = (data) => {
     return data.map((point, index) => ({ x: point.timestamp, y: slope * index + intercept }));
 };
 
+const calculateMovingAverage = (data, period) => {
+    return data.map((entry, index, arr) => {
+        if (index < period - 1) return { x: entry.timestamp, y: null };
+        const subset = arr.slice(index - period + 1, index + 1);
+        const avg = subset.reduce((sum, val) => sum + val.price, 0) / period;
+        return { x: entry.timestamp, y: avg };
+    });
+};
+
 const updateChart = (chart, data) => {
     chart.data.labels = data.map(entry => entry.timestamp);
     chart.data.datasets[0].data = data.map(entry => entry.price);
-
+    
     const trendLineData = calculateTrendLine(data);
     if (chart.data.datasets.length > 1) {
         chart.data.datasets[1].data = trendLineData.map(entry => entry.y);
@@ -90,43 +99,24 @@ const updateChart = (chart, data) => {
         });
     }
 
+    const movingAverageData = calculateMovingAverage(data, 7);
+    if (chart.data.datasets.length > 2) {
+        chart.data.datasets[2].data = movingAverageData.map(entry => entry.y);
+    } else {
+        chart.data.datasets.push({
+            label: '7-Day Moving Average',
+            data: movingAverageData.map(entry => entry.y),
+            borderColor: 'rgba(75, 192, 192, 0.5)',
+            borderWidth: 2,
+            fill: false,
+            borderDash: [5, 5]
+        });
+    }
+
     chart.update();
 };
 
-const initChart = (context, label, color, addAnnotation = false) => {
-    const options = {
-        scales: {
-            x: {
-                type: 'time',
-                time: {
-                    unit: 'minute'
-                }
-            },
-            y: {
-                beginAtZero: false
-            }
-        }
-    };
-
-    if (addAnnotation) {
-        options.plugins = {
-            annotation: {
-                annotations: [{
-                    type: 'line',
-                    mode: 'horizontal',
-                    scaleID: 'y',
-                    value: buyPriceUSD,
-                    borderColor: 'rgb(75, 192, 192)',
-                    borderWidth: 2,
-                    label: {
-                        enabled: true,
-                        content: 'Buy Price (USD)'
-                    }
-                }]
-            }
-        };
-    }
-
+const initChart = (context, label, color, isBitcoin = false) => {
     return new Chart(context, {
         type: 'line',
         data: {
@@ -139,7 +129,65 @@ const initChart = (context, label, color, addAnnotation = false) => {
                 fill: false
             }]
         },
-        options: options
+        options: {
+            scales: {
+                x: {
+                    type: 'time',
+                    time: {
+                        unit: 'minute'
+                    }
+                },
+                y: {
+                    beginAtZero: false
+                }
+            },
+            plugins: {
+                annotation: isBitcoin ? {
+                    annotations: {
+                        line1: {
+                            type: 'line',
+                            mode: 'horizontal',
+                            scaleID: 'y',
+                            value: buyPriceUSD,
+                            borderColor: 'red',
+                            borderWidth: 2,
+                            label: {
+                                enabled: true,
+                                content: 'Buy Price'
+                            }
+                        }
+                    }
+                } : {}
+            }
+        }
+    });
+};
+
+const initVolumeChart = (context, label, color) => {
+    return new Chart(context, {
+        type: 'bar',
+        data: {
+            labels: [],
+            datasets: [{
+                label: `${label} Volume (24h)`,
+                data: [],
+                backgroundColor: color,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    type: 'time',
+                    time: {
+                        unit: 'minute'
+                    }
+                },
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
     });
 };
 
@@ -237,16 +285,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const bitcoinCtx = document.getElementById('bitcoinChart').getContext('2d');
     const ethereumCtx = document.getElementById('ethereumChart').getContext('2d');
-
+   
     const bitcoinChart = initChart(bitcoinCtx, 'Bitcoin', '#f7931a', true);
     const ethereumChart = initChart(ethereumCtx, 'Ethereum', '#3c3c3d');
-
+    
     const data = await fetchData();
     const bitcoin = data.find(crypto => crypto.symbol === 'BTC');
     const ethereum = data.find(crypto => crypto.symbol === 'ETH');
 
-    storeData('BTC', bitcoin.quote.USD.price);
-    storeData('ETH', ethereum.quote.USD.price);
+    storeData('BTC', bitcoin.quote.USD.price, bitcoin.quote.USD.volume_24h);
+    storeData('ETH', ethereum.quote.USD.price, ethereum.quote.USD.volume_24h);
 
     displayCurrentPrices(bitcoin, ethereum);
 
@@ -256,3 +304,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     updateChart(bitcoinChart, bitcoinData);
     updateChart(ethereumChart, ethereumData);
 });
+
+
+function toggleChartSize(element) {
+    element.classList.toggle('enlarged');
+}
+
+var ctx = document.getElementById('bitcoinChart').getContext('2d');
+
+

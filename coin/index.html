@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto Tracker</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.0.2"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.0.2"></script> <!-- Add this line -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -33,7 +33,9 @@
                     <p>Rank: <span id="bitcoin-rank">0</span></p>
                 </div>
                 <div class="chart-container">
-                    <canvas id="bitcoinChart"></canvas>
+                    <div class="chart-wrapper" onclick="toggleChartSize(this)">
+                        <canvas id="bitcoinChart"></canvas>
+                    </div>
                 </div>
             </div>
             <div class="crypto-column">
@@ -52,11 +54,15 @@
                     <p>Rank: <span id="ethereum-rank">0</span></p>
                 </div>
                 <div class="chart-container">
-                    <canvas id="ethereumChart"></canvas>
+                    <div class="chart-wrapper" onclick="toggleChartSize(this)">
+                        <canvas id="ethereumChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <script src="scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
+
 </body>
 </html>
