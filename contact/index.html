@@ -38,11 +38,11 @@
                 message: form.message.value
             };
             grecaptcha.ready(async () => {
-                const token = await grecaptcha.execute('YOUR_SITE_KEY', { action: 'submit' });
+                const token = await grecaptcha.execute('6LfLgiEqAAAAAIMGJ4ePyUfYynzqRre-mkWQdtWP', { action: 'submit' });
                 data['g-recaptcha-response'] = token;
 
                 try {
-                    const response = await fetch('https://my-contact-form-94lhhp649-mehdis-projects-37a20b81.vercel.app/api/send-email', {
+                    const response = await fetch('https://my-contact-form-n1nounryp-mehdis-projects-37a20b81.vercel.app/api/send-email', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
