@@ -8,7 +8,7 @@ body {
   justify-content: center;
   align-items: center;
   color: #494a4b;
-  font-family: "Gochi Hand", cursive;
+  font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   text-align: center;
   font-size: 130%;
 }
@@ -70,7 +70,7 @@ body {
   border-bottom-left-radius: 3px 15px;
   border: solid 3px transparent;
   border-bottom: dashed 3px #ea95e0;
-  font-family: "Gochi Hand", cursive;
+  font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   font-size: 1rem;
   color: rgba(63, 62, 65, 0.7);
   width: 70%;
@@ -91,7 +91,7 @@ body {
   border: none;
   transform: rotate(4deg);
   transform-origin: center;
-  font-family: "Gochi Hand", cursive;
+  font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   text-decoration: none;
   padding-bottom: 3px;
   border-radius: 5px;
@@ -124,4 +124,86 @@ body {
 }
 .toDoList li:hover {
   text-decoration: line-through wavy #24bffb;
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: 250px;
+  background-color: #f9F9F9;
+  padding: 1rem;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+  transform: translateX(0); 
+  cursor: pointer;
+  z-index: 9000000000 !important;
+}
+
+.sidebar.open {
+  transform: translateX(0); /* No translation needed on desktop */
+}
+
+/* Hamburger button (hidden by default on large screens) */
+.hamburger {
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+.close-btn {
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+@media (max-width: 768px) {
+  /* On mobile, hide the sidebar initially */
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  /* Display the hamburger button on mobile */
+  .hamburger {
+    display: block;
+  }
+}
+
+
+.button.delete-history {
+  background-color: #ff4c4c;
+  color: rgb(0, 0, 0);
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  box-shadow: 0 2px 0 #333;
+}
+
+.button.delete-history:hover {
+  background-color: #ff1c1c;
+}
+
+.button.delete-history:active {
+  background-color: #cc0000;
+  box-shadow: none;
+  transform: translateY(2px);
 }
