@@ -12,13 +12,6 @@ body {
     align-items: center;
     height: 100vh;
     overflow: hidden;
-    perspective: 1000px;
-    animation: backgroundAnimation 20s infinite alternate;
-}
-
-@keyframes backgroundAnimation {
-    0% { background: linear-gradient(to right, #3a3a3a, #1c1c1c); }
-    100% { background: linear-gradient(to right, #1c1c1c, #3a3a3a); }
 }
 
 .container {
@@ -26,45 +19,17 @@ body {
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    transform: rotateY(20deg);
-    animation: containerAnimation 1s ease-in-out, rotateAnimation 20s infinite alternate;
     width: 30%;
 }
 
-@keyframes containerAnimation {
-    from {
-        opacity: 0;
-        transform: translateY(-10px) rotateY(20deg);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) rotateY(20deg);
-    }
-}
-
-@keyframes rotateAnimation {
-    0% { transform: rotateY(10deg); }
-    100% { transform: rotateY(-10deg); }
-}
-
-h1 {
-    margin-bottom: 20px;
-    font-size: 2.5em;
-    color: #fff;
+h1, h2 {
     text-align: center;
-    animation: textAnimation 2s infinite alternate;
-}
-
-@keyframes textAnimation {
-    0% { color: #fff; }
-    100% { color: #1c1c1c; }
+    margin-bottom: 20px;
 }
 
 .input-group {
     position: relative;
     margin-bottom: 20px;
-    transform: scale(1);
-    transition: transform 0.3s;
 }
 
 .input-group i {
@@ -73,47 +38,19 @@ h1 {
     top: 50%;
     transform: translateY(-50%);
     color: #999;
-    transition: color 0.3s, transform 0.3s;
 }
 
 .input-group input,
 .input-group textarea {
     width: 100%;
-    padding: 10px 10px 10px 40px;
+    padding: 10px 40px 10px 30px;
     border: 2px solid #ddd;
     border-radius: 5px;
     outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    animation: inputAnimation 0.5s ease-in-out;
 }
 
 .input-group textarea {
     height: 200px;
-}
-
-@keyframes inputAnimation {
-    from { transform: translateX(-10px); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-}
-
-.input-group.focused {
-    transform: scale(1.1);
-}
-
-.input-group.focused i {
-    color: #1c1c1c;
-    transform: translateY(-50%) scale(1.2);
-}
-
-.input-group input:focus,
-.input-group textarea:focus {
-    border-color: #1c1c1c;
-    box-shadow: 0 0 10px rgba(28, 28, 28, 0.5);
-}
-
-textarea {
-    resize: none;
-    height: 100px;
 }
 
 button {
@@ -124,55 +61,17 @@ button {
     border-radius: 5px;
     font-size: 1.2em;
     cursor: pointer;
-    transition: background 0.3s, transform 0.3s;
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: buttonAnimation 1s ease-in-out;
-}
-
-@keyframes buttonAnimation {
-    from { transform: scale(0.9); }
-    to { transform: scale(1); }
-}
-
-button i {
-    margin-left: 10px;
-    animation: iconAnimation 1s infinite alternate;
-}
-
-@keyframes iconAnimation {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(5px); }
-}
-
-button:hover {
-    background: #3a3a3a;
-    transform: scale(1.1);
 }
 
 #response {
     margin-top: 20px;
     font-size: 1em;
-    color: #fff;
     text-align: center;
-    opacity: 0;
-    animation: responseAnimation 1s ease-in-out forwards;
+    color: #fff;
 }
-
-@keyframes responseAnimation {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-#response.success {
-    color: green;
-}
-
-#response.error {
-    color: red;
-}
-
 
 @media (max-width: 768px) {
     .container {
@@ -180,8 +79,8 @@ button:hover {
         padding: 20px;
     }
 
-    h1 {
-        font-size: 2em;
+    h1, h2 {
+        font-size: 1.5em;
     }
 
     button {
