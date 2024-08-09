@@ -5,16 +5,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Device orientation event
     if (window.DeviceOrientationEvent) {
         window.addEventListener('deviceorientation', function(event) {
-            // Normalize the beta and gamma values to stay within -maxRotationDegrees to maxRotationDegrees
-            const beta = Math.max(-maxRotationDegrees, Math.min(maxRotationDegrees, event.beta * 0.05));  // X-axis tilt
-            const gamma = Math.max(-maxRotationDegrees, Math.min(maxRotationDegrees, event.gamma * 0.05)); // Y-axis tilt
+            const beta = Math.max(-maxRotationDegrees, Math.min(maxRotationDegrees, event.beta * 0.1));  // X-axis tilt
+            const gamma = Math.max(-maxRotationDegrees, Math.min(maxRotationDegrees, event.gamma * 0.1)); // Y-axis tilt
 
             // Apply a scaled down rotation transform focused on beta (X-axis) and gamma (Y-axis)
             container.style.transform = `rotateX(${beta}deg) rotateY(${gamma}deg)`;
         });
     }
 
-    // Form submission handling with reCAPTCHA
+    const responseDiv = document.getElementById('response');
     document.getElementById('contact-form').addEventListener('submit', async (e) => {
         e.preventDefault();
         const form = e.target;
@@ -23,6 +22,10 @@ document.addEventListener('DOMContentLoaded', function() {
             email: form.email.value,
             message: form.message.value
         };
+
+        // Update UI for sending message
+        responseDiv.innerHTML = '<div class="loading">Sending message...</div>';
+        responseDiv.classList.add('show');
 
         grecaptcha.ready(async () => {
             const token = await grecaptcha.execute('6LfLgiEqAAAAAIMGJ4ePyUfYynzqRre-mkWQdtWP', { action: 'submit' });
@@ -40,17 +43,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     throw new Error('Network response was not ok');
                 }
                 const result = await response.json();
-                document.getElementById('response').innerText = result.message;
-                document.getElementById('response').classList.add('success');
+                responseDiv.innerHTML = `<div class="success"><i class="fas fa-check-circle"></i> ${result.message}</div>`;
                 setTimeout(() => {
-                    document.getElementById('response').classList.remove('success');
+                    responseDiv.classList.remove('show');
                 }, 3000);
             } catch (error) {
                 console.error('Error:', error);
-                document.getElementById('response').innerText = 'Failed to send message';
-                document.getElementById('response').classList.add('error');
+                responseDiv.innerHTML = `<div class="error"><i class="fas fa-exclamation-triangle"></i> Failed to send message: ${error.message}</div>`;
                 setTimeout(() => {
-                    document.getElementById('response').classList.remove('error');
+                    responseDiv.classList.remove('show');
                 }, 3000);
             }
         });

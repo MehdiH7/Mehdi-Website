@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
     background: linear-gradient(to right, #3a3a3a, #1c1c1c);
     display: flex;
     justify-content: center;
@@ -87,4 +87,57 @@ button {
         font-size: 1em;
         padding: 10px 15px;
     }
+}
+
+.loading, .success, .error {
+    text-align: center;
+    padding: 10px;
+    color: #fff;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.loading {
+    background-color: #ffa500; /* Orange for loading */
+}
+
+.success {
+    background-color: #4CAF50; /* Green for success */
+}
+
+.error {
+    background-color: #f44336; /* Red for error */
+}
+
+#response.show {
+    display: block; /* Ensure it's visible when active */
+}
+
+.input-group i, button i {
+    margin-right: 8px; /* Ensure spacing between icon and text */
+    color: #4CAF50; /* Style the icons with a color that fits the theme */
+}
+
+h1 i {
+    margin-right: 5px;
+    color: #ffa500; /* Giving a unique color to the header icon */
+}
+
+/* Additional styling for responsiveness and aesthetics */
+input, textarea, button {
+    padding: 10px;
+    width: 100%; /* Ensures full width for better touch interaction */
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+button {
+    background-color: #333; /* Darker background for the button */
+    color: white; /* Light text for contrast */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555; /* Lighten button on hover for feedback */
 }
