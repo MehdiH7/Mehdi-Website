@@ -1,16 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
     const container = document.querySelector('.container');
-    const rotationFactor = 0.1; // Reduce the sensitivity of rotation
+    const maxRotationDegrees = 5; // Maximum degrees the container can rotate
 
     // Device orientation event
     if (window.DeviceOrientationEvent) {
         window.addEventListener('deviceorientation', function(event) {
-            const alpha = event.alpha * rotationFactor; // Z-axis rotation
-            const beta = event.beta * rotationFactor;  // X-axis tilt
-            const gamma = event.gamma * rotationFactor; // Y-axis tilt
+            // Normalize the beta and gamma values to stay within -maxRotationDegrees to maxRotationDegrees
+            const beta = Math.max(-maxRotationDegrees, Math.min(maxRotationDegrees, event.beta * 0.05));  // X-axis tilt
+            const gamma = Math.max(-maxRotationDegrees, Math.min(maxRotationDegrees, event.gamma * 0.05)); // Y-axis tilt
 
-            // Apply a scaled down rotation transform
-            container.style.transform = `rotateZ(${alpha}deg) rotateX(${beta}deg) rotateY(${gamma}deg)`;
+            // Apply a scaled down rotation transform focused on beta (X-axis) and gamma (Y-axis)
+            container.style.transform = `rotateX(${beta}deg) rotateY(${gamma}deg)`;
         });
     }
 
