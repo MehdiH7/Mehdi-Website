@@ -83,8 +83,9 @@
   }
 
   function toggleItemDone(id) {
-    const li = document.querySelector('[data-id="' + id + '"]');
+    const li = document.querySelector(`[data-id="${id}"]`);
     li.classList.toggle('done');
+    
     const item = currentList.find(item => item.itemId === id);
     if (item) {
       item.done = !item.done;

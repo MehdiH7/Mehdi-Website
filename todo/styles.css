@@ -126,6 +126,17 @@ body {
   text-decoration: line-through wavy #24bffb;
 }
 
+.toDoList li.done {
+  text-decoration: line-through;
+  color: green;
+}
+
+.toDoList li.done::before {
+  content: '✔ ';
+  color: green;
+}
+
+
 /* Sidebar styles */
 .sidebar {
   width: 250px;
