@@ -1,14 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
     const container = document.querySelector('.container');
+    const rotationFactor = 0.1; // Reduce the sensitivity of rotation
 
     // Device orientation event
     if (window.DeviceOrientationEvent) {
         window.addEventListener('deviceorientation', function(event) {
-            const alpha = event.alpha;
-            const beta = event.beta;
-            const gamma = event.gamma;
+            const alpha = event.alpha * rotationFactor; // Z-axis rotation
+            const beta = event.beta * rotationFactor;  // X-axis tilt
+            const gamma = event.gamma * rotationFactor; // Y-axis tilt
 
-            // Rotate the form container based on device orientation
+            // Apply a scaled down rotation transform
             container.style.transform = `rotateZ(${alpha}deg) rotateX(${beta}deg) rotateY(${gamma}deg)`;
         });
     }
