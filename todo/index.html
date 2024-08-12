@@ -1,45 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>To-Do List</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="styles.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <button class="hamburger">&#9776;</button>
-    <section class="sidebar">
-      <button class="close-btn">&times;</button>
-      <h2>History</h2>
-      <ul class="historyList"></ul>
-      <button class="button delete-history"><span>Delete All History</span></button>
-    </section>
-    
-    
-    <section class="container">
-      <div class="heading">
-        <img class="heading__img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/756881/laptop.svg">
-        <h1 class="heading__title">To-Do List</h1>
+<head>
+  <title>To-Do List</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Firebase App (the core Firebase SDK) -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <!-- Firebase Authentication -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <!-- Firebase Firestore -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+</head>
+<body>
+  <!-- Authentication Modal -->
+  <div id="authModal" class="auth-modal">
+    <div class="auth-modal-content">
+      <h2>Welcome to To-Do List</h2>
+      <p>Please log in or sign up to continue</p>
+      <input type="email" id="email" placeholder="Email">
+      <input type="password" id="password" placeholder="Password">
+      <div class="auth-buttons">
+        <button id="signUpBtn">Sign Up</button>
+        <button id="logInBtn">Log In</button>
       </div>
-      <form class="form">
-        <div>
-          <label class="form__label" for="todo">~ Today I need to ~</label>
-          <input class="form__input"
-               type="text" 
-               id="todo" 
-               name="to-do"
-               size="30"
-               required>
-          <button class="button"><span>Submit</span></button>
-        </div>
-      </form>
-      <button class="button create-new-list"><span>Create New List</span></button>
-      
+    </div>
+  </div>
+
+  <!-- To-Do List UI -->
+  <button class="hamburger">&#9776;</button>
+  <section class="sidebar">
+    <button class="close-btn">&times;</button>
+    <h2>My Lists</h2>
+    <ul class="historyList"></ul>
+    
+    <div>
+      <h2>Shared With Me</h2>
+      <ul class="sharedList"></ul>
+    </div>
+    <button class="button delete-history"><span>Delete All History</span></button>
+  </section>
+  
+  <section class="container">
+    <div class="heading">
+      <img class="heading__img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/756881/laptop.svg">
+      <h1 class="heading__title">To-Do List</h1>
+    </div>
+    <div>
+      <label for="listTitle">List Title:</label>
+      <input type="text" id="listTitle" placeholder="Enter list title" />
+    </div>
+    <form class="form">
       <div>
-        <ul class="toDoList"></ul>
+        <input class="form__input"
+             type="text" 
+             id="todo" 
+             name="to-do"
+             size="30"
+             required>
+        <button class="button"><span>Submit</span></button>
       </div>
-    </section>
-    <script src="script.js"></script>
-  </body>
+    </form>
+
+  <div class="center-buttons">
+    <button class="button create-blank-list"><span>Create New Blank List</span></button>
+    <button class="button save-current-list"><span>Save Current List</span></button>
+  </div>
+
+  
+    <hr style="border-top: dotted 4px;">
+    <!-- Share List Section -->
+    <div>
+      <label for="shareEmail">Share with:</label>
+      <input type="email" id="shareEmail" placeholder="Enter email to share" />
+      
+    </div>
+
+    <div class="botton-share-container"> 
+      <button class="button share-list"><span>Share</span></button>
+    </div>
+
+    <div>
+      <ul class="toDoList"></ul>
+    </div>
+
+    <!-- User Info and Logout -->
+    <div class="user-info">
+      <span id="userEmail"></span>
+      <button id="logOutBtn" class="button"><span>Log Out</span></button>
+    </div>
+  </section>
+  
+  <script src="firebaseConfig.js"></script>
+  <script src="script.js"></script>
+  
+</body>
 </html>
