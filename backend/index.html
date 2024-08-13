@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Interaction with Access Token</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>API Interaction Page</h1>
+
+        <div class="api-section">
+            <h2>Enter Access Token</h2>
+            <input type="text" id="accessToken" placeholder="Enter your access token">
+        </div>
+        
+        <div class="api-section">
+            <h2>GET Request</h2>
+            <button id="getBtn">Fetch Data</button>
+            <p id="getResult">Click the button to fetch data.</p>
+        </div>
+
+        <div class="api-section">
+            <h2>POST Request</h2>
+            <input type="text" id="postData" placeholder="Enter data to post">
+            <button id="postBtn">Post Data</button>
+            <p id="postResult">Enter data and click the button to post.</p>
+        </div>
+
+        <div class="api-section">
+            <h2>PUT Request</h2>
+            <input type="text" id="putData" placeholder="Enter data to update">
+            <button id="putBtn">Update Data</button>
+            <p id="putResult">Enter data and click the button to update.</p>
+        </div>
+
+        <div id="progress">
+            <p id="progressText">Progress: Waiting for action...</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
