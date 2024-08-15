@@ -1,7 +1,7 @@
 const video = document.getElementById('myVideo');
 const viewport = document.getElementById('video-viewport');
 
-// fetch the focal points
+// Fetch the focal points
 function loadFocalPoints(filePath) {
     return fetch(filePath)
         .then(response => response.text())
@@ -22,7 +22,7 @@ function loadFocalPoints(filePath) {
                     const crop_x = parseInt(parts[2].match(/crop x (\d+)/)[1], 10);
                     const crop_y = parseInt(parts[3].match(/crop y (\d+)/)[1], 10);
 
-                    // object for each focal point
+                    // Object for each focal point
                     focalPoints.push({
                         timestamp: timestamp,
                         cropW: crop_w,
@@ -44,7 +44,7 @@ function smoothTransition(currentX, targetX, duration) {
     const startTime = performance.now();
     function animate() {
         const elapsed = performance.now() - startTime;
-        const progress = Math.min(elapsed / duration, 1); // don't go over 100%
+        const progress = Math.min(elapsed / duration, 1); // Don't go over 100%
         const newX = lastObjectPositionX + (targetX - lastObjectPositionX) * progress;
         video.style.objectPosition = `${newX}% 0%`;
         
@@ -71,6 +71,9 @@ function updateFocalPoint(focalPoints) {
                 let cropLeft = Math.max(0, Math.min(cropX, video.videoWidth - cropWidth));
                 let objectPositionX = (cropLeft / video.videoWidth) * 100;
 
+                // Add a fixed 10% to the object position
+                objectPositionX += 10;
+
                 if (lastObjectPositionX === null) {
                     lastObjectPositionX = objectPositionX;
                     video.style.objectPosition = `${objectPositionX}% 0%`;
@@ -94,5 +97,3 @@ loadFocalPoints('commands.txt').then(focalPoints => {
 
     updateFocalPoint(focalPoints);
 });
-
-
