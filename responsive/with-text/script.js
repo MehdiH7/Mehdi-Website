@@ -73,6 +73,8 @@ function updateFocalPoint(focalPoints) {
 
                 let cropLeft = Math.max(0, Math.min(cropX, video.videoWidth - cropWidth));
                 let objectPositionX = (cropLeft / video.videoWidth) * 100;
+                
+                objectPositionX += 15;    
 
                 if (lastObjectPositionX === null) {
                     lastObjectPositionX = objectPositionX;

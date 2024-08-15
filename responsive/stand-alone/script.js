@@ -72,7 +72,7 @@ function updateFocalPoint(focalPoints) {
                 let objectPositionX = (cropLeft / video.videoWidth) * 100;
 
                 // Add a fixed 10% to the object position
-                objectPositionX += 10;
+                objectPositionX += 15;
 
                 if (lastObjectPositionX === null) {
                     lastObjectPositionX = objectPositionX;
