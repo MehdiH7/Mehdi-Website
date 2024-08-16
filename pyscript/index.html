@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Data Visualization</title>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Include the PyScript framework -->
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+</head>
+<body>
+
+    <h1>Stock Data Visualization</h1>
+
+    <div id="container">
+        <label for="symbol-input">Enter Stock Symbol (e.g., AAPL):</label>
+        <input type="text" id="symbol-input" />
+        <button id="fetch-btn">Fetch Data</button>
+
+        <p id="message"></p>
+
+        <!-- Area to display the Matplotlib visualization -->
+        <py-script>
+            from pyscript import display
+
+            # Create a placeholder for the plot
+            display(None, target="plot-container")
+        </py-script>
+        <div id="plot-container"></div>
+    </div>
+
+    <!-- PyScript configuration to load packages -->
+    <py-config>
+        packages = ["matplotlib", "requests"]
+    </py-config>
+
+    <!-- Link to the external Python script -->
+    <py-script src="script.py"></py-script>
+
+</body>
+</html>
