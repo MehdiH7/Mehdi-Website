@@ -19,19 +19,27 @@ player.ready(function() {
     console.log('Player is ready');
 
     const videoElement = player.el().querySelector('.vjs-tech');
+
     videoElement.style.objectFit = 'cover';
     videoElement.style.objectPosition = 'center';
 
-    loadFocalPoints('commands.txt').then(focalPoints => {
-        updateFocalPoint(focalPoints);
-        
-        window.addEventListener('resize', () => updateFocalPoint(focalPoints));
-        player.on('loadedmetadata', () => updateFocalPoint(focalPoints));
-        player.on('timeupdate', () => updateFocalPoint(focalPoints));
+    loadFocalPoints('commands.txt')
+        .then(focalPoints => {
+            console.log('Focal points loaded:', focalPoints);
 
-        setInterval(() => updateFocalPoint(focalPoints), 50);
-    });
+            updateFocalPoint(focalPoints);
+            
+            window.addEventListener('resize', () => updateFocalPoint(focalPoints));
+            player.on('loadedmetadata', () => updateFocalPoint(focalPoints));
+            player.on('timeupdate', () => updateFocalPoint(focalPoints));
+
+            setInterval(() => updateFocalPoint(focalPoints), 50);
+        })
+        .catch(error => {
+            console.error('Error loading focal points:', error);
+        });
 });
+
 
 function loadFocalPoints(filePath) {
     return fetch(filePath)
