@@ -1,8 +1,19 @@
+/* Container for the video player */
 #video-viewport {
     position: relative;
     width: 100%;
     height: 100vh; 
     overflow: hidden; 
+}
+
+/* Fullscreen adjustment for 9:16 aspect ratio */
+.video-js.vjs-fullscreen {
+    width: 56.25vh; /* This keeps the width in proportion to height for 9:16 aspect ratio */
+    height: 100vh;
+    object-fit: cover;
+    object-position: center;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .video-js {
