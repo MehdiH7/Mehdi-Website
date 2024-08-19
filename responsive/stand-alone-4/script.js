@@ -1,19 +1,24 @@
 const viewport = document.getElementById('video-viewport');
 
 const player = videojs('myVideo', {
-    autoplay: true,
-    controls: true,
+    autoplay: 'muted', 
+    controls: true, 
     loop: true,
-    preload: 'auto',
-    fluid: true,
-    playsinline: true
+    preload: 'auto', 
+    fluid: true, 
+    playsinline: true, 
+    fullscreen: {
+        options: {
+            navigationUI: 'hide' 
+        }
+    },
+    preferFullWindow: true, 
 });
 
 player.ready(function() {
     console.log('Player is ready');
 
     const videoElement = player.el().querySelector('.vjs-tech');
-
     videoElement.style.objectFit = 'cover';
     videoElement.style.objectPosition = 'center';
 
@@ -24,8 +29,7 @@ player.ready(function() {
         player.on('loadedmetadata', () => updateFocalPoint(focalPoints));
         player.on('timeupdate', () => updateFocalPoint(focalPoints));
 
-        // Additional check to ensure updates are frequent enough
-        setInterval(() => updateFocalPoint(focalPoints), 50); 
+        setInterval(() => updateFocalPoint(focalPoints), 50);
     });
 });
 
