@@ -1,0 +1,49 @@
+/* Container for the video player */
+#video-viewport {
+    position: relative;
+    width: 100%;
+    height: 100vh; 
+    overflow: hidden; 
+}
+
+/* Fullscreen adjustment for 9:16 aspect ratio */
+.video-js.vjs-fullscreen {
+    width: 56.25vh; /* This keeps the width in proportion to height for 9:16 aspect ratio */
+    height: 100vh;
+    object-fit: cover;
+    object-position: center;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.video-js {
+    width: 100%;
+    height: 100%;
+    max-width: 100%; 
+    max-height: 100%; 
+    object-fit: cover;
+    object-position: center; 
+}
+
+.video-js .vjs-big-play-button {
+    top: 50% !important; 
+    left: 50% !important;
+    transform: translate(-50%, -50%); 
+    z-index: 10; 
+}
+
+.vjs-control-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    z-index: 10; 
+    display: flex !important; 
+    opacity: 1 !important; 
+}
+
+.video-js.vjs-has-started.vjs-paused .vjs-control-bar,
+.video-js.vjs-has-started .vjs-control-bar {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
