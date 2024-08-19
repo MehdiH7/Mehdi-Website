@@ -1,14 +1,12 @@
 const viewport = document.getElementById('video-viewport');
 
-// Initialize Video.js player
 const player = videojs('myVideo', {
     autoplay: true,
     controls: true,
     loop: true,
     preload: 'auto',
     fluid: true,
-    playsinline: true,
-    nativeControlsForTouch: false,
+    playsinline: true
 });
 
 player.ready(function() {
@@ -25,8 +23,9 @@ player.ready(function() {
         window.addEventListener('resize', () => updateFocalPoint(focalPoints));
         player.on('loadedmetadata', () => updateFocalPoint(focalPoints));
         player.on('timeupdate', () => updateFocalPoint(focalPoints));
-        
-        setInterval(() => updateFocalPoint(focalPoints), 50);
+
+        // Additional check to ensure updates are frequent enough
+        setInterval(() => updateFocalPoint(focalPoints), 50); 
     });
 });
 
@@ -128,13 +127,3 @@ function updateFocalPoint(focalPoints) {
         videoElement.style.objectPosition = '50% 50%';
     }
 }
-
-window.addEventListener('orientationchange', function() {
-    if (window.matchMedia("(orientation: portrait)").matches) {
-        // Handle portrait orientation
-        player.requestFullscreen();
-    } else if (window.matchMedia("(orientation: landscape)").matches) {
-        // Handle landscape orientation
-        player.exitFullscreen();
-    }
-});
