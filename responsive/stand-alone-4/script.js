@@ -1,7 +1,34 @@
-const video = document.getElementById('myVideo');
 const viewport = document.getElementById('video-viewport');
 
-// Fetch the focal points
+const player = videojs('myVideo', {
+    autoplay: true,
+    controls: true,
+    loop: true,
+    preload: 'auto',
+    fluid: true,
+    playsinline: true
+});
+
+player.ready(function() {
+    console.log('Player is ready');
+
+    const videoElement = player.el().querySelector('.vjs-tech');
+
+    videoElement.style.objectFit = 'cover';
+    videoElement.style.objectPosition = 'center';
+
+    loadFocalPoints('commands.txt').then(focalPoints => {
+        updateFocalPoint(focalPoints);
+        
+        window.addEventListener('resize', () => updateFocalPoint(focalPoints));
+        player.on('loadedmetadata', () => updateFocalPoint(focalPoints));
+        player.on('timeupdate', () => updateFocalPoint(focalPoints));
+
+        // Additional check to ensure updates are frequent enough
+        setInterval(() => updateFocalPoint(focalPoints), 50); 
+    });
+});
+
 function loadFocalPoints(filePath) {
     return fetch(filePath)
         .then(response => response.text())
@@ -12,7 +39,6 @@ function loadFocalPoints(filePath) {
             lines.forEach(line => {
                 line = line.trim();
                 if (line) {
-                    
                     line = line.replace(';', '');
                     const parts = line.split(',');
 
@@ -38,62 +64,66 @@ function loadFocalPoints(filePath) {
 }
 
 let lastProcessedTime = 0;
-let lastObjectPositionX = null; 
+let lastObjectPositionX = null;
+let targetObjectPositionX = null;
+let isTransitioning = false;
 
 function smoothTransition(currentX, targetX, duration) {
-    const startTime = performance.now();
+    if (isTransitioning) return;
+    
+    isTransitioning = true;
+
+    const stepCount = Math.ceil(duration / 16);
+    const stepSize = (targetX - currentX) / stepCount;
+    let step = 0;
+
     function animate() {
-        const elapsed = performance.now() - startTime;
-        const progress = Math.min(elapsed / duration, 1); // Don't go over 100%
-        const newX = lastObjectPositionX + (targetX - lastObjectPositionX) * progress;
-        video.style.objectPosition = `${newX}% 0%`;
-        
-        if (progress < 1) {
+        if (step <= stepCount) {
+            const videoElement = player.el().querySelector('.vjs-tech');
+            lastObjectPositionX = currentX + step * stepSize;
+            videoElement.style.objectPosition = `${lastObjectPositionX}% 0%`;
+            step++;
             requestAnimationFrame(animate);
         } else {
-            lastObjectPositionX = newX; 
+            isTransitioning = false;
+            lastObjectPositionX = targetX;
         }
     }
-    requestAnimationFrame(animate);
+    animate();
 }
 
 function updateFocalPoint(focalPoints) {
-    const currentTime = video.currentTime;
+    const currentTime = player.currentTime();
     const viewportAspect = viewport.clientWidth / viewport.clientHeight;
-    const videoAspect = video.videoWidth / video.videoHeight;
+    const videoAspect = player.videoWidth() / player.videoHeight();
 
     if (viewportAspect < videoAspect) {
         focalPoints.forEach(focalPoint => {
             if (focalPoint.timestamp > lastProcessedTime && focalPoint.timestamp <= currentTime) {
+
                 const cropWidth = focalPoint.cropW;
                 const cropX = focalPoint.cropX;
 
-                let cropLeft = Math.max(0, Math.min(cropX, video.videoWidth - cropWidth));
-                let objectPositionX = (cropLeft / video.videoWidth) * 100;
+                let cropLeft = Math.max(0, Math.min(cropX, player.videoWidth() - cropWidth));
+                let objectPositionX = (cropLeft / player.videoWidth()) * 100;
 
-                // Add a fixed 10% to the object position
                 objectPositionX += 15;
 
                 if (lastObjectPositionX === null) {
                     lastObjectPositionX = objectPositionX;
-                    video.style.objectPosition = `${objectPositionX}% 0%`;
-                } else {
-                    // Smooth transition from last position to new one
-                    smoothTransition(lastObjectPositionX, objectPositionX, 200); 
+                    targetObjectPositionX = objectPositionX;
+                    const videoElement = player.el().querySelector('.vjs-tech');
+                    videoElement.style.objectPosition = `${objectPositionX}% 0%`;
+                } else if (targetObjectPositionX !== objectPositionX) {
+                    targetObjectPositionX = objectPositionX;
+                    smoothTransition(lastObjectPositionX, objectPositionX, 500);
                 }
             }
         });
 
         lastProcessedTime = currentTime;
     } else {
-        video.style.objectPosition = '50% 50%';
+        const videoElement = player.el().querySelector('.vjs-tech');
+        videoElement.style.objectPosition = '50% 50%';
     }
 }
-
-loadFocalPoints('commands.txt').then(focalPoints => {
-    window.addEventListener('resize', () => updateFocalPoint(focalPoints));
-    video.addEventListener('loadedmetadata', () => updateFocalPoint(focalPoints));
-    video.addEventListener('timeupdate', () => updateFocalPoint(focalPoints));
-
-    updateFocalPoint(focalPoints);
-});

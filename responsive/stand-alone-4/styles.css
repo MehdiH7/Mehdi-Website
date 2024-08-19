@@ -1,23 +1,38 @@
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-}
-
 #video-viewport {
     position: relative;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: hidden; /* Hide the parts of the video outside this container */
+    width: 100%;
+    height: 100vh; 
+    overflow: hidden; 
 }
 
-#myVideo {
-    position: absolute;
-    top: 0;
-    left: 0;
+.video-js {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Maintain aspect ratio, fill the container */
-    object-position: 50% 50%; /* Start centered */
+    max-width: 100%; 
+    max-height: 100%; 
+    object-fit: cover;
+    object-position: center; 
+}
+
+.video-js .vjs-big-play-button {
+    top: 50% !important; 
+    left: 50% !important;
+    transform: translate(-50%, -50%); 
+    z-index: 10; 
+}
+
+.vjs-control-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    z-index: 10; 
+    display: flex !important; 
+    opacity: 1 !important; 
+}
+
+.video-js.vjs-has-started.vjs-paused .vjs-control-bar,
+.video-js.vjs-has-started .vjs-control-bar {
+    visibility: visible !important;
+    opacity: 1 !important;
 }

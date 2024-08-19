@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Responsive Video Cropping</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
+    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
 </head>
 <body>
     <div id="video-viewport">
-        <video id="myVideo" controls autoplay loop>
-            <source src="video.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+        <video-js id="myVideo" class="video-js vjs-default-skin" loop preload="auto">
+            <source src="https://demo-api.forzify.com/jpn/playlist.m3u8/46:5435982:5465982/Manifest.m3u8" type="application/x-mpegURL">
+        </video-js>
     </div>
     <script src="script.js"></script>
 </body>
 </html>
+
+<!-- https://demo-api.forzify.com/jpn/playlist.m3u8/46:5435982:5465982/Manifest.m3u8 -->
