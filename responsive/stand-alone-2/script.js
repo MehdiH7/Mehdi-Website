@@ -44,7 +44,7 @@ function smoothTransition(currentX, targetX, duration) {
     const startTime = performance.now();
     function animate() {
         const elapsed = performance.now() - startTime;
-        const progress = Math.min(elapsed / duration, 1); // Don't go over 100%
+        const progress = Math.min(elapsed / duration, 1);
         const newX = lastObjectPositionX + (targetX - lastObjectPositionX) * progress;
         video.style.objectPosition = `${newX}% 0%`;
         
