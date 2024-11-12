@@ -46,6 +46,7 @@ body {
     width: 100%;
     height: 90%;
     object-fit: cover;
+    border-radius: 20px;
 }
 
 .progress-bar {
@@ -93,7 +94,7 @@ body {
     margin: 0;
 }
 
-
+/* Responsive adjustments for smaller devices */
 @media (max-width: 480px) {
     .reels-container {
         height: 80vh;
