@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reels Clone with Scroll and Swipe</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+    <div class="reels-container">
+        <div class="video-wrapper" id="video-wrapper">
+            <div class="progress-bar" id="progress-bar"></div>
+            <div class="video-container" id="video-container">
+                <video class="reel-video" id="reel-video" controls autoplay></video>
+                <div class="buttons">
+                    <button class="like-btn">❤️</button>
+                    <button class="comment-btn">💬</button>
+                    <button class="share-btn">↗️</button>
+                </div>
+                <div class="title-container">
+                    <h3 id="video-title">Video Title</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

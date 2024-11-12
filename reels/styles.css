@@ -1,0 +1,110 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden; /* Prevents page scrolling */
+}
+
+.reels-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    height: 90vh;
+    overflow: hidden;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.video-container {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s ease-in-out; /* Smooth slide effect */
+}
+
+.reel-video {
+    width: 100%;
+    height: 90%;
+    object-fit: cover;
+}
+
+.progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, #ff6a00, #ff0066, #0099ff);
+    border-radius: 20px 20px 0 0;
+    overflow: hidden;
+}
+
+.buttons {
+    position: absolute;
+    right: 10px;
+    bottom: 70px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.buttons button {
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.title-container {
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 8px 12px;
+    border-radius: 10px;
+}
+
+.title-container h3 {
+    font-size: 16px;
+    color: #fff;
+    margin: 0;
+}
+
+
+@media (max-width: 480px) {
+    .reels-container {
+        height: 80vh;
+    }
+
+    .buttons button {
+        font-size: 16px;
+        padding: 8px;
+    }
+
+    .title-container h3 {
+        font-size: 14px;
+    }
+}
