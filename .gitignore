@@ -1,2 +1,4 @@
 my-backend
 chatbot/backend
+.vscode
+.DS_Store
