@@ -3,12 +3,18 @@
     --main-bg-color: #f8f9fa;
     --main-text-color: #333;
     --primary-color: #1a73e8;
+    --secondary-color: #615EFC;
+    --accent-color: #7E8EF1;
     --secondary-text-color: #888;
     --overlay-bg-color: rgba(255, 255, 255, 0.7);
     --overlay-blur: blur(10px);
     --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     --border-radius: 10px;
     --transition: 0.3s;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -22,6 +28,44 @@ body {
     align-items: center;
     width: 100%;
     height: 100%;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* 3D Background */
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Enhanced background for content */
+.top-menu, .profile-card, .service-card, .overlay-content {
+    backdrop-filter: var(--overlay-blur);
+    background: var(--overlay-bg-color);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Hover effects enhanced for depth */
+.profile-card:hover, .service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Animation for content sections as you scroll */
+.profile-section, .service-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.profile-section.visible, .service-card.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 header {
@@ -153,6 +197,17 @@ main {
     gap: 20px;
     flex: 2;
     max-width: 800px;
+    position: relative;
+}
+
+#services-animation-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
 }
 
 .service-card {
@@ -168,6 +223,43 @@ main {
     position: relative;
     overflow: hidden;
     cursor: pointer;
+    z-index: 1;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Animation for service cards when they become visible */
+@keyframes moveToGrid {
+  0% {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+  }
+  100% {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: translate(0, 0);
+    z-index: 1;
+  }
+}
+
+/* Additional styling for service cards animation */
+.service-card[data-animation="ready"] {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.service-card[data-animation="visible"] {
+    opacity: 1;
+    transform: translateY(0);
+    animation: fadeIn 0.5s ease forwards;
+}
+
+/* When all cards are visible, show the grid layout */
+.services.all-visible .service-card {
+    position: relative;
 }
 
 .service-card i {
@@ -448,6 +540,15 @@ footer {
     .overlay-active .top-menu {
         display: none;
     }
+
+    #services-animation-canvas {
+        height: 150vh; /* Taller canvas for mobile to accommodate stacked cards */
+    }
+    
+    .service-card[data-animation="ready"],
+    .service-card[data-animation="visible"] {
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
 }
 
 /* Hide the menu when overlay is active */
@@ -459,4 +560,65 @@ footer {
 body.night-mode {
     background-color: #1a1a1a;
     color: #f0f0f0;
+}
+
+body.night-mode .top-menu,
+body.night-mode .profile-card,
+body.night-mode .service-card,
+body.night-mode .overlay-content {
+    background: rgba(30, 30, 30, 0.7);
+}
+
+body.night-mode .top-menu ul li a {
+    color: #f0f0f0;
+}
+
+body.night-mode .top-menu ul li a:hover,
+body.night-mode .top-menu ul li a:focus {
+    background-color: #333;
+    color: #fff;
+}
+
+body.night-mode .profile-card {
+    background: rgba(26, 80, 180, 0.7);
+}
+
+body.night-mode header h1 {
+    color: #5a9cf8;
+}
+
+body.night-mode .service-card h3 {
+    color: #5a9cf8;
+}
+
+body.night-mode .service-card a {
+    color: #5a9cf8;
+}
+
+body.night-mode .social-icons a {
+    background-color: #333;
+}
+
+body.night-mode .social-icons a:hover {
+    background-color: #5a9cf8;
+}
+
+/* Scroll Progress Indicator */
+#scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    z-index: 1001;
+    transition: width 0.1s;
+}
+
+/* Text Reveal Animation */
+.reveal-char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }

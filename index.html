@@ -9,10 +9,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="icon" href="mehdi3.jpg" type="image/x-icon">
+    <!-- Import map for Three.js modules -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
 </head>
 
 
 <body>
+    <!-- 3D Background Canvas -->
+    <div id="bg-canvas"></div>
+    
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress"></div>
+    
     <div id="overlay-circle">
         <div id="loading-text"><img src="mehdi3.jpg" alt="" style="border-radius:50%; width: 250px;"></div>
     </div>
@@ -45,22 +60,23 @@
                     <button data-content="apps">Learn More</button>
                 </div>
                 <div class="services">
-                    <div class="service-card graphic-design" data-content="projects">
+                    <canvas id="services-animation-canvas"></canvas>
+                    <div class="service-card graphic-design" data-content="projects" data-animation="ready">
                         <i class="fas fa-book fa-3x"></i>
                         <h3>Publications</h3>
                         <a href="#" data-content="projects">MORE</a>
                     </div>
-                    <div class="service-card web-design" data-content="apps">
+                    <div class="service-card web-design" data-content="apps" data-animation="ready">
                         <i class="fas fa-cogs fa-3x"></i>
                         <h3>Softwares</h3>
                         <a href="#" data-content="apps">MORE</a>
                     </div>
-                    <div class="service-card software" data-content="web-design">
+                    <div class="service-card software" data-content="web-design" data-animation="ready">
                         <i class="fas fa-desktop fa-3x"></i>
                         <h3>Web Design</h3>
                         <a href="#" data-content="web-design">MORE</a>
                     </div>
-                    <div class="service-card application" data-content="research-interests">
+                    <div class="service-card application" data-content="research-interests" data-animation="ready">
                         <i class="fas fa-lightbulb fa-3x"></i>
                         <h3>Research Interests</h3>
                         <a href="#" data-content="research-interests">MORE</a>
@@ -296,7 +312,7 @@
                                 <li>In the role of Teaching Assistant for Mathematics 4000, I provided comprehensive
                                     academic support to students, focusing on advanced topics like ordinary and partial
                                     differential equations, Laplace transforms, and Fourier series. This position
-                                    entailed both classroom assistance and external support, ensuring students’ thorough
+                                    entailed both classroom assistance and external support, ensuring students' thorough
                                     understanding of complex mathematical concepts and effective application of
                                     analytical skills.</li>
                                 <li>Skills: ODEs & PDEs / Fourier Analysis / Laplace Transforms</li>
@@ -420,10 +436,11 @@
         </div>
         
         <footer>
-            <p>&copy; 2024 Mehdi Houshmand. All rights reserved.</p>
+            <p>&copy; 2025 Mehdi Houshmand. All rights reserved.</p>
         </footer>
 
         <script src="scripts.js"></script>
+        <script type="module" src="background.js"></script>
     </div>
 </body>
 
