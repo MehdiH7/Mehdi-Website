@@ -11,6 +11,8 @@
     --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     --border-radius: 10px;
     --transition: 0.3s;
+    --neon: 0 10px 30px rgba(97, 94, 252, 0.35), 0 20px 60px rgba(126, 142, 241, 0.25);
+    --card-tilt-perspective: 900px;
 }
 
 html {
@@ -22,6 +24,12 @@ body {
     margin: 0;
     padding: 0;
     background-color: var(--main-bg-color);
+    background-image:
+        radial-gradient(1200px 800px at 10% 10%, rgba(126, 142, 241, 0.25), transparent 60%),
+        radial-gradient(1000px 700px at 90% 30%, rgba(97, 94, 252, 0.25), transparent 60%),
+        radial-gradient(800px 600px at 50% 90%, rgba(26, 115, 232, 0.20), transparent 65%);
+    background-size: 200% 200%, 200% 200%, 200% 200%;
+    animation: bgShift 18s ease-in-out infinite;
     color: var(--main-text-color);
     display: flex;
     flex-direction: column;
@@ -30,6 +38,12 @@ body {
     height: 100%;
     position: relative;
     overflow-x: hidden;
+}
+
+@keyframes bgShift {
+    0% { background-position: 0% 50%, 100% 50%, 50% 100%; }
+    50% { background-position: 100% 50%, 0% 50%, 50% 0%; }
+    100% { background-position: 0% 50%, 100% 50%, 50% 100%; }
 }
 
 /* 3D Background */
@@ -50,10 +64,9 @@ body {
     transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* Hover effects enhanced for depth */
+/* Hover effects enhanced for depth (transform handled via CSS variables) */
 .profile-card:hover, .service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), var(--neon);
 }
 
 /* Animation for content sections as you scroll */
@@ -81,7 +94,11 @@ header h2 {
 
 header h1 {
     font-size: 2.5em;
-    color: var(--primary-color);
+    color: transparent;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0 10px 30px rgba(26, 115, 232, 0.12);
 }
 
 header p {
@@ -151,6 +168,7 @@ main {
     display: flex;
     gap: 20px;
     width: 100%;
+    position: relative;
 }
 
 .profile-card {
@@ -163,12 +181,18 @@ main {
     flex: 1;
     color: white;
     max-width: 400px;
+    position: relative;
+    z-index: 1;
+    transform: perspective(var(--card-tilt-perspective)) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(var(--scale, 1));
+    will-change: transform;
 }
 
 .profile-card img {
     width: 150px;
     height: 150px;
     border-radius: 50%;
+    position: relative;
+    z-index: 1;
 }
 
 .profile-card p {
@@ -224,7 +248,9 @@ main {
     overflow: hidden;
     cursor: pointer;
     z-index: 1;
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition: opacity 0.6s ease, transform 0.15s ease;
+    transform: perspective(var(--card-tilt-perspective)) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(var(--scale, 1));
+    will-change: transform;
 }
 
 /* Animation for service cards when they become visible */
@@ -295,6 +321,25 @@ main {
     left: 0;
 }
 
+/* Neon animated border for cards */
+.service-card::before, .profile-card::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: conic-gradient(from 0deg, rgba(26,115,232,0.0), rgba(26,115,232,0.5), rgba(97,94,252,0.5), rgba(126,142,241,0.5), rgba(26,115,232,0.0));
+    filter: blur(12px) saturate(140%);
+    z-index: 0;
+    animation: spinGlow 8s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes spinGlow {
+    to { transform: rotate(360deg); }
+}
+
+.service-card > *, .profile-card > * { position: relative; z-index: 1; }
+
 .service-card.graphic-design::after {
     background-color: #f39c12;
 }
@@ -333,6 +378,7 @@ main {
     border-radius: var(--border-radius);
     overflow-y: auto;
     height: 80%;
+    box-shadow: var(--neon);
 }
 
 .overlay-content .close-btn {
@@ -376,6 +422,7 @@ main {
 
 .social-icons a:hover {
     background-color: #555;
+    box-shadow: 0 8px 25px rgba(26,115,232,0.25);
 }
 
 .social-icons i {
@@ -446,7 +493,7 @@ main {
     color: white;
     font-family: var(--main-font-family);
     font-size: 2em;
-    z-index: 1002;
+    z-index: 2002;
 }
 
 #overlay-circle.expanding {
@@ -477,6 +524,27 @@ footer {
     text-align: center;
     padding: 10px 20px;
     margin-top: 20px;
+}
+
+/* Floating blob behind profile section */
+.profile-section::before {
+    content: "";
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 60vmax;
+    height: 60vmax;
+    background: radial-gradient(circle at 30% 30%, rgba(97,94,252,0.25), transparent 60%),
+                radial-gradient(circle at 70% 70%, rgba(26,115,232,0.2), transparent 55%);
+    filter: blur(40px) saturate(140%);
+    z-index: 0;
+    pointer-events: none;
+    animation: blobDrift 16s ease-in-out infinite alternate;
+}
+
+@keyframes blobDrift {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(5%, -5%) scale(1.05); }
 }
 
 /* Media Queries for Mobile Responsiveness */
@@ -560,6 +628,10 @@ footer {
 body.night-mode {
     background-color: #1a1a1a;
     color: #f0f0f0;
+    background-image:
+        radial-gradient(1200px 800px at 10% 10%, rgba(126, 142, 241, 0.12), transparent 60%),
+        radial-gradient(1000px 700px at 90% 30%, rgba(97, 94, 252, 0.15), transparent 60%),
+        radial-gradient(800px 600px at 50% 90%, rgba(26, 115, 232, 0.12), transparent 65%);
 }
 
 body.night-mode .top-menu,
@@ -621,4 +693,32 @@ body.night-mode .social-icons a:hover {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Cursor glow */
+#cursor-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40vmin;
+    height: 40vmin;
+    pointer-events: none;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(97,94,252,0.22), rgba(26,115,232,0.18), transparent 60%);
+    mix-blend-mode: screen;
+    filter: blur(20px) saturate(150%);
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+/* Profile image ring */
+.image-scroll-wrapper::after {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, #1a73e8, #615EFC, #7E8EF1, #1a73e8);
+    filter: blur(4px);
+    animation: spinGlow 10s linear infinite;
+    z-index: -1;
 }

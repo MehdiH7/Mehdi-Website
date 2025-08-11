@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeParallaxImages();
   initializeScrollProgress();
   initializeServicesAnimation();
+  initializeCardTiltEffects();
+  initializeCursorGlow();
   setNightMode(); 
   setInterval(setNightMode, 60000);
 });
@@ -153,6 +155,75 @@ function initializeTextReveal() {
   });
 }
 
+// Subtle 3D tilt for cards
+function initializeCardTiltEffects() {
+  const tiltElements = document.querySelectorAll('.service-card, .profile-card');
+  if (!tiltElements.length) return;
+
+  tiltElements.forEach((el) => {
+    const maxTilt = 8; // degrees
+    const scaleOnHover = 1.02;
+
+    function handleMove(e) {
+      const rect = el.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width; // 0..1
+      const y = (e.clientY - rect.top) / rect.height; // 0..1
+      const rotateY = (x - 0.5) * (maxTilt * 2);
+      const rotateX = -(y - 0.5) * (maxTilt * 2);
+      el.style.setProperty('--rx', rotateX.toFixed(2) + 'deg');
+      el.style.setProperty('--ry', rotateY.toFixed(2) + 'deg');
+      el.style.setProperty('--scale', scaleOnHover);
+    }
+
+    function resetTilt() {
+      el.style.setProperty('--rx', '0deg');
+      el.style.setProperty('--ry', '0deg');
+      el.style.setProperty('--scale', '1');
+    }
+
+    el.addEventListener('mousemove', handleMove);
+    el.addEventListener('mouseleave', resetTilt);
+    el.addEventListener('mouseenter', (e) => handleMove(e));
+  });
+}
+
+// Cursor glow that follows the mouse
+function initializeCursorGlow() {
+  if (document.getElementById('cursor-glow')) return;
+  const glow = document.createElement('div');
+  glow.id = 'cursor-glow';
+  document.body.appendChild(glow);
+
+  const smoothing = 0.12;
+  let targetX = window.innerWidth / 2;
+  let targetY = window.innerHeight / 2;
+  let currentX = targetX;
+  let currentY = targetY;
+  let rafId = null;
+
+  function animate() {
+    currentX += (targetX - currentX) * smoothing;
+    currentY += (targetY - currentY) * smoothing;
+    glow.style.left = `${currentX}px`;
+    glow.style.top = `${currentY}px`;
+    rafId = requestAnimationFrame(animate);
+  }
+
+  function onMove(e) {
+    targetX = e.clientX;
+    targetY = e.clientY;
+    if (!rafId) animate();
+  }
+
+  function onLeave() {
+    cancelAnimationFrame(rafId);
+    rafId = null;
+  }
+
+  window.addEventListener('mousemove', onMove);
+  window.addEventListener('mouseout', onLeave);
+}
+
 // Initialize parallax images
 function initializeParallaxImages() {
   // Create a scroll-linked image container
@@ -245,8 +316,8 @@ function checkScrollEffects() {
     // Apply scale based on proximity (closer to current scroll = larger)
     const scale = 1 + (0.1 * (1 - Math.min(proximity * 3, 1)));
     
-    // Apply the scale transform
-    card.style.transform = `scale(${scale})`;
+    // Apply scale via CSS variable to preserve tilt transforms
+    card.style.setProperty('--scale', scale.toFixed(3));
   });
 }
 
