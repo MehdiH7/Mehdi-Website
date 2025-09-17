@@ -4,18 +4,19 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeLoadingAnimation();
   initializeScrollEffects();
   initializeTextReveal();
-  initializeParallaxImages();
   initializeScrollProgress();
-  initializeServicesAnimation();
+  initializeStatsAnimation();
   initializeCardTiltEffects();
   initializeCursorGlow();
+  initializeMobileMenu();
+  initializeSmoothScrolling();
   setNightMode(); 
   setInterval(setNightMode, 60000);
 });
 
 function initializeOverlay() {
   const clickableElements = document.querySelectorAll(
-    ".service-card, .top-menu ul li a"
+    ".service-card.modern, .nav-link, .btn-primary, .btn-secondary"
   );
   const overlay = document.getElementById("overlay");
   const closeBtn = document.getElementById("close-btn");
@@ -25,22 +26,34 @@ function initializeOverlay() {
       section.classList.remove("active");
     });
     document.getElementById(contentId).classList.add("active");
-    overlay.style.left = "0";
+    overlay.classList.add("active");
+    document.body.style.overflow = "hidden";
   }
 
   clickableElements.forEach((element) => {
     element.addEventListener("click", (event) => {
       event.preventDefault();
       const contentId = element.getAttribute("data-content");
-      openOverlay(contentId);
+      if (contentId) {
+        openOverlay(contentId);
+      }
     });
   });
 
   if (closeBtn) {
     closeBtn.addEventListener("click", () => {
-      overlay.style.left = "-100%";
+      overlay.classList.remove("active");
+      document.body.style.overflow = "auto";
     });
   }
+
+  // Close overlay when clicking outside content
+  overlay.addEventListener("click", (event) => {
+    if (event.target === overlay) {
+      overlay.classList.remove("active");
+      document.body.style.overflow = "auto";
+    }
+  });
 }
 
 function initializeFilters() {
@@ -75,18 +88,13 @@ function initializeFilters() {
 function initializeLoadingAnimation() {
   const overlayCircle = document.getElementById("overlay-circle");
   const mainContent = document.getElementById("main-content");
-  const loadingText = document.getElementById("loading-text");
 
   setTimeout(() => {
-    overlayCircle.classList.add("expanding");
-  }, 100);
-
-  setTimeout(() => {
-    overlayCircle.style.display = "none";
-    mainContent.classList.add("visible");
+    overlayCircle.classList.add("hidden");
+    mainContent.classList.remove("hidden");
     // Trigger initial scroll effects check
     checkScrollEffects();
-  }, 1600);
+  }, 2000);
 }
 
 // Initialize scroll effects for revealing content on scroll
@@ -157,12 +165,12 @@ function initializeTextReveal() {
 
 // Subtle 3D tilt for cards
 function initializeCardTiltEffects() {
-  const tiltElements = document.querySelectorAll('.service-card, .profile-card');
+  const tiltElements = document.querySelectorAll('.service-card.modern, .stat-item');
   if (!tiltElements.length) return;
 
   tiltElements.forEach((el) => {
-    const maxTilt = 8; // degrees
-    const scaleOnHover = 1.02;
+    const maxTilt = 5; // degrees
+    const scaleOnHover = 1.05;
 
     function handleMove(e) {
       const rect = el.getBoundingClientRect();
@@ -266,7 +274,7 @@ function initializeParallaxImages() {
 function checkScrollEffects() {
   // Fallback for browsers without IntersectionObserver
   if (!('IntersectionObserver' in window)) {
-    const elements = document.querySelectorAll('.profile-section, .service-card');
+    const elements = document.querySelectorAll('.service-card.modern, .stat-item');
     const windowHeight = window.innerHeight;
     
     elements.forEach(el => {
@@ -278,14 +286,28 @@ function checkScrollEffects() {
     });
   }
   
-  // Add parallax effect to heading elements
+  // Add parallax effect to hero elements
   const scrollPosition = window.scrollY;
-  document.querySelectorAll('header h1, header h2').forEach(el => {
-    el.style.transform = `translateY(${scrollPosition * 0.2}px)`;
-  });
+  const hero = document.querySelector('.hero');
+  if (hero) {
+    const heroHeight = hero.offsetHeight;
+    const scrollPercent = scrollPosition / heroHeight;
+    
+    // Parallax effect for hero image
+    const heroImage = document.querySelector('.hero-image');
+    if (heroImage) {
+      heroImage.style.transform = `translateY(${scrollPosition * 0.3}px)`;
+    }
+    
+    // Parallax effect for floating elements
+    document.querySelectorAll('.floating-element').forEach((element, index) => {
+      const speed = 0.1 + (index * 0.05);
+      element.style.transform = `translateY(${scrollPosition * speed}px)`;
+    });
+  }
   
   // Reveal text character by character based on scroll position
-  document.querySelectorAll('header h1, header h2, header p').forEach(element => {
+  document.querySelectorAll('.hero-title .title-line, .hero-description').forEach(element => {
     if (element.dataset.revealed === 'true') return;
     
     const rect = element.getBoundingClientRect();
@@ -306,15 +328,15 @@ function checkScrollEffects() {
   });
   
   // Update service cards with scroll-linked effect
-  document.querySelectorAll('.service-card').forEach((card, index) => {
+  document.querySelectorAll('.service-card.modern').forEach((card, index) => {
     const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-    const cardPosition = index / document.querySelectorAll('.service-card').length;
+    const cardPosition = index / document.querySelectorAll('.service-card.modern').length;
     
     // Calculate proximity between scroll position and card position
     const proximity = Math.abs(scrollPercent - cardPosition);
     
     // Apply scale based on proximity (closer to current scroll = larger)
-    const scale = 1 + (0.1 * (1 - Math.min(proximity * 3, 1)));
+    const scale = 1 + (0.05 * (1 - Math.min(proximity * 3, 1)));
     
     // Apply scale via CSS variable to preserve tilt transforms
     card.style.setProperty('--scale', scale.toFixed(3));
@@ -346,239 +368,87 @@ function initializeScrollProgress() {
   });
 }
 
-// Initialize service cards scroll animation
-function initializeServicesAnimation() {
-  const canvas = document.getElementById('services-animation-canvas');
-  const serviceCards = document.querySelectorAll('.service-card[data-animation="ready"]');
+// Initialize stats animation
+function initializeStatsAnimation() {
+  const statNumbers = document.querySelectorAll('.stat-number');
   
-  if (!canvas || serviceCards.length === 0) return;
-  
-  const ctx = canvas.getContext('2d');
-  const servicesContainer = canvas.parentElement;
-  let animationFrameId = null;
-  let particles = [];
-  let connectionLines = [];
-  
-  // Colors from your CSS variables
-  const colors = [
-    '#1a73e8', // Publications
-    '#615EFC', // Software
-    '#7E8EF1', // Web Design
-    '#34A853'  // Research Interests
-  ];
-  
-  // Resize canvas to match container
-  function resizeCanvas() {
-    canvas.width = servicesContainer.offsetWidth;
-    canvas.height = servicesContainer.offsetHeight;
-    createParticles();
-  }
-  
-  // Create particles for the animation
-  function createParticles() {
-    particles = [];
-    // Create particle clusters for each service card
-    serviceCards.forEach((card, index) => {
-      const rect = card.getBoundingClientRect();
-      const containerRect = servicesContainer.getBoundingClientRect();
-      const cardX = rect.left - containerRect.left + rect.width / 2;
-      const cardY = rect.top - containerRect.top + rect.height / 2;
+  const animateNumber = (element) => {
+    const target = parseInt(element.getAttribute('data-target'));
+    const duration = 2000; // 2 seconds
+    const start = performance.now();
+    
+    const updateNumber = (currentTime) => {
+      const elapsed = currentTime - start;
+      const progress = Math.min(elapsed / duration, 1);
       
-      // Create particles around each card
-      const particleCount = 20; // Adjust as needed
-      for (let i = 0; i < particleCount; i++) {
-        particles.push({
-          x: cardX + (Math.random() - 0.5) * rect.width * 1.2,
-          y: cardY + (Math.random() - 0.5) * rect.height * 1.2,
-          size: Math.random() * 4 + 1,
-          speedX: (Math.random() - 0.5) * 0.5,
-          speedY: (Math.random() - 0.5) * 0.5,
-          color: colors[index % colors.length],
-          cardIndex: index,
-          alpha: 0.1 + Math.random() * 0.3
-        });
-      }
-    });
-  }
-  
-  // Animate the particles
-  function animate() {
-    animationFrameId = requestAnimationFrame(animate);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    // Update and draw particles
-    particles.forEach(particle => {
-      // Move particles
-      particle.x += particle.speedX;
-      particle.y += particle.speedY;
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const current = Math.floor(easeOutQuart * target);
       
-      // Bounce off container edges
-      const margin = 30;
-      if (particle.x < margin || particle.x > canvas.width - margin) {
-        particle.speedX *= -1;
-      }
-      if (particle.y < margin || particle.y > canvas.height - margin) {
-        particle.speedY *= -1;
-      }
+      element.textContent = current;
       
-      // Draw particle
-      ctx.beginPath();
-      ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-      ctx.fillStyle = particle.color + Math.floor(particle.alpha * 255).toString(16).padStart(2, '0');
-      ctx.fill();
-    });
-    
-    // Draw connection lines between particles of the same card
-    ctx.lineWidth = 0.3;
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        if (particles[i].cardIndex === particles[j].cardIndex) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          
-          // Draw line if particles are close enough
-          if (distance < 70) {
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = particles[i].color + '40'; // Semi-transparent
-            ctx.stroke();
-          }
-        }
+      if (progress < 1) {
+        requestAnimationFrame(updateNumber);
+      } else {
+        element.textContent = target;
       }
-    }
-  }
-  
-  // Create card position mapping for scroll calculation
-  const cardPositions = [];
-  let cardsRevealed = 0;
-  
-  function calculateCardPositions() {
-    cardPositions.length = 0;
-    const windowHeight = window.innerHeight;
-    const documentHeight = Math.max(
-      document.body.scrollHeight,
-      document.documentElement.scrollHeight,
-      document.body.offsetHeight,
-      document.documentElement.offsetHeight
-    );
+    };
     
-    // Use a percentage of the document height for better distribution
-    const scrollableArea = documentHeight - windowHeight;
-    const startTrigger = windowHeight * 0.2; // Start after scrolling 20% of viewport height
-    const endTrigger = scrollableArea * 0.7; // End before reaching bottom
-    const scrollRange = endTrigger - startTrigger;
-    
-    serviceCards.forEach((card, index) => {
-      // Distribute card triggers evenly within the scroll range
-      const triggerPos = startTrigger + (scrollRange * index / (serviceCards.length - 1 || 1));
-      
-      cardPositions.push({
-        scrollTrigger: triggerPos,
-        index: index,
-        revealed: false
-      });
-    });
-    
-    // Handle case when page is already scrolled on load
-    const currentScrollPos = window.scrollY;
-    cardPositions.forEach(cardPos => {
-      if (currentScrollPos >= cardPos.scrollTrigger) {
-        cardPos.revealed = true;
-        serviceCards[cardPos.index].setAttribute('data-animation', 'visible');
-        cardsRevealed++;
-      }
-    });
-    
-    // If all cards are already revealed, show grid
-    if (cardsRevealed === serviceCards.length) {
-      revealAllCards();
-    }
-  }
+    requestAnimationFrame(updateNumber);
+  };
   
-  // Handle scroll to reveal cards
-  function handleScroll() {
-    const scrollPos = window.scrollY;
-    
-    // Check each card's trigger position
-    cardPositions.forEach(cardPos => {
-      if (!cardPos.revealed && scrollPos >= cardPos.scrollTrigger) {
-        // Mark this card as revealed
-        cardPos.revealed = true;
-        cardsRevealed++;
-        
-        // Show the card with animation
-        const card = serviceCards[cardPos.index];
-        card.setAttribute('data-animation', 'visible');
-        
-        // Update particles for this card
-        particles.forEach(particle => {
-          if (particle.cardIndex === cardPos.index) {
-            // Increase particle speed and alpha for revealed cards
-            particle.alpha = 0.4 + Math.random() * 0.4;
-            particle.speedX = (Math.random() - 0.5) * 1.2;
-            particle.speedY = (Math.random() - 0.5) * 1.2;
-          }
-        });
-        
-        // If all cards are revealed, gradually transition to grid layout
-        if (cardsRevealed === serviceCards.length) {
-          setTimeout(() => {
-            revealAllCards();
-          }, 500);
-        }
-      }
-    });
-  }
-  
-  // Function to reveal all cards when scroll reaches bottom
-  function revealAllCards() {
-    serviceCards.forEach(card => {
-      card.setAttribute('data-animation', 'visible');
-    });
-    servicesContainer.classList.add('all-visible');
-  }
-  
-  // Set up Intersection Observer to detect when cards section is visible
-  let sectionVisible = false;
+  // Use Intersection Observer to trigger animation when stats come into view
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      sectionVisible = entry.isIntersecting;
-      
-      if (sectionVisible) {
-        if (!animationFrameId) {
-          // Start animation
-          animate();
-          calculateCardPositions();
-        }
-      } else {
-        // Stop animation when section not visible
-        if (animationFrameId) {
-          cancelAnimationFrame(animationFrameId);
-          animationFrameId = null;
+      if (entry.isIntersecting) {
+        const statNumber = entry.target.querySelector('.stat-number');
+        if (statNumber && !statNumber.classList.contains('animated')) {
+          statNumber.classList.add('animated');
+          animateNumber(statNumber);
         }
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.5 });
   
-  // Start observing the services container
-  observer.observe(servicesContainer);
-  
-  // Listen for scroll
-  window.addEventListener('scroll', () => {
-    if (sectionVisible) {
-      handleScroll();
-    }
+  // Observe each stat item
+  document.querySelectorAll('.stat-item').forEach(item => {
+    observer.observe(item);
   });
+}
+
+// Initialize mobile menu
+function initializeMobileMenu() {
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMenu = document.querySelector('.nav-menu');
   
-  // Listen for resize
-  window.addEventListener('resize', () => {
-    resizeCanvas();
-    calculateCardPositions();
+  if (navToggle && navMenu) {
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      navToggle.classList.toggle('active');
+    });
+    
+    // Close menu when clicking on a link
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        navToggle.classList.remove('active');
+      });
+    });
+  }
+}
+
+// Initialize smooth scrolling for navigation
+function initializeSmoothScrolling() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
   });
-  
-  // Initial setup
-  resizeCanvas();
-  calculateCardPositions();
 }

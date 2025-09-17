@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mehdi Houshmand</title>
+    <title>Mehdi Houshmand - AI Researcher & Developer</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" href="mehdi3.jpg" type="image/x-icon">
     <!-- Import map for Three.js modules -->
     <script type="importmap">
@@ -28,62 +28,171 @@
     <!-- Scroll Progress Indicator -->
     <div id="scroll-progress"></div>
     
+    <!-- Loading Screen -->
     <div id="overlay-circle">
-        <div id="loading-text"><img src="mehdi3.jpg" alt="" style="border-radius:50%; width: 250px;"></div>
+        <div id="loading-text">
+            <div class="loading-avatar">
+                <img src="mehdi3.jpg" alt="Mehdi Houshmand">
+            </div>
+            <div class="loading-text-content">
+                <h2>Mehdi Houshmand</h2>
+                <p>AI Researcher & Developer</p>
+            </div>
+        </div>
     </div>
+
     <div id="main-content" class="hidden">
-        <nav class="top-menu">
-            <ul>
-                <li><a href="https://mehdi.cam" data-content="home">Home</a></li>
-                <li><a href="#" data-content="apps">Apps</a></li>
-                <li><a href="#" data-content="projects">Publications</a></li>
-                <li><a href="#" data-content="experience">Experience</a></li>
-                <li><a href="#" data-content="contact">Contact</a></li>
-            </ul>
+        <!-- Modern Navigation -->
+        <nav class="modern-nav">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <span class="logo-text">MH</span>
+                </div>
+                <div class="nav-menu">
+                    <a href="#home" class="nav-link active" data-content="home">Home</a>
+                    <a href="#apps" class="nav-link" data-content="apps">Apps</a>
+                    <a href="#publications" class="nav-link" data-content="projects">Publications</a>
+                    <a href="#experience" class="nav-link" data-content="experience">Experience</a>
+                    <a href="#contact" class="nav-link" data-content="contact">Contact</a>
+                </div>
+                <div class="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
         </nav>
 
-        <header>
-            <h2>A BIT ABOUT ME</h2>
-            <h1>Who Am I?</h1>
-            <p>Hi, I'm Mehdi Houshmand. I'm currently working as a software developer while pursuing an industrial PhD in Computer
-                Science. My work combines research with real-world application, focusing on areas like mathematical modeling,
-                artificial intelligence, and information technology. I also have a Master's in Applied Computer and Information
-                Technology, which helped me build skills in AI, machine learning, web development, and data analytics. I'm
-                passionate about solving practical problems through research and applying innovative solutions in the industry.</p>
-        </header>
-
-        <main>
-            <div class="profile-section">
-                <div class="profile-card">
-                    <img src="mehdi3.jpg" alt="Your Photo">
-                    <p>Passionate about technological innovation and research in AI and data science. Discover more about my journey and expertise.</p>
-                    <button data-content="apps">Learn More</button>
-                </div>
-                <div class="services">
-                    <canvas id="services-animation-canvas"></canvas>
-                    <div class="service-card graphic-design" data-content="projects" data-animation="ready">
-                        <i class="fas fa-book fa-3x"></i>
-                        <h3>Publications</h3>
-                        <a href="#" data-content="projects">MORE</a>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <div class="hero-badge">
+                            <i class="fas fa-code"></i>
+                            <span>AI Researcher & Developer</span>
+                        </div>
+                        <h1 class="hero-title">
+                            <span class="title-line">Building the Future</span>
+                            <span class="title-line">with AI & Research</span>
+                        </h1>
+                        <p class="hero-description">
+                            I'm Mehdi Houshmand, a software developer pursuing an industrial PhD in Computer Science. 
+                            I combine cutting-edge research with real-world applications, focusing on AI, machine learning, 
+                            and innovative technology solutions.
+                        </p>
+                        <div class="hero-actions">
+                            <button class="btn-primary" data-content="apps">
+                                <span>View My Work</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                            <button class="btn-secondary" data-content="contact">
+                                <span>Get In Touch</span>
+                                <i class="fas fa-envelope"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="service-card web-design" data-content="apps" data-animation="ready">
-                        <i class="fas fa-cogs fa-3x"></i>
-                        <h3>Softwares</h3>
-                        <a href="#" data-content="apps">MORE</a>
-                    </div>
-                    <div class="service-card software" data-content="web-design" data-animation="ready">
-                        <i class="fas fa-desktop fa-3x"></i>
-                        <h3>Web Design</h3>
-                        <a href="#" data-content="web-design">MORE</a>
-                    </div>
-                    <div class="service-card application" data-content="research-interests" data-animation="ready">
-                        <i class="fas fa-lightbulb fa-3x"></i>
-                        <h3>Research Interests</h3>
-                        <a href="#" data-content="research-interests">MORE</a>
+                    <div class="hero-visual">
+                        <div class="hero-image-container">
+                            <img src="mehdi3.jpg" alt="Mehdi Houshmand" class="hero-image">
+                            <div class="hero-image-glow"></div>
+                        </div>
+                        <div class="floating-elements">
+                            <div class="floating-element" style="--delay: 0s">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="floating-element" style="--delay: 1s">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="floating-element" style="--delay: 2s">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="floating-element" style="--delay: 3s">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </main>
+        </section>
+
+        <!-- Quick Stats -->
+        <section class="stats-section">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="15">0</div>
+                    <div class="stat-label">Publications</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="3">0</div>
+                    <div class="stat-label">Open Source Apps</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="5">0</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="100">0</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Grid -->
+        <section class="services-section">
+            <div class="services-container">
+                <div class="section-header">
+                    <h2 class="section-title">What I Do</h2>
+                    <p class="section-subtitle">Exploring the intersection of AI, research, and practical applications</p>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card modern" data-content="projects">
+                        <div class="service-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h3>Research & Publications</h3>
+                        <p>Publishing cutting-edge research in AI, computer vision, and multimedia systems</p>
+                        <div class="service-link">
+                            <span>Explore Research</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                    <div class="service-card modern" data-content="apps">
+                        <div class="service-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3>AI Applications</h3>
+                        <p>Developing innovative AI solutions for sports analytics and social media</p>
+                        <div class="service-link">
+                            <span>View Applications</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                    <div class="service-card modern" data-content="web-design">
+                        <div class="service-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3>Web Development</h3>
+                        <p>Creating modern, responsive web experiences and interactive interfaces</p>
+                        <div class="service-link">
+                            <span>See Portfolio</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                    <div class="service-card modern" data-content="research-interests">
+                        <div class="service-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Innovation</h3>
+                        <p>Pushing boundaries in machine learning, computer vision, and data science</p>
+                        <div class="service-link">
+                            <span>Learn More</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <div class="overlay" id="overlay">
             <div class="overlay-content" id="overlay-content">
@@ -428,15 +537,70 @@
             </div>
         </div>
 
-        <div class="social-icons">
-            <a href="https://github.com/MehdiH7" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="https://scholar.google.com/citations?hl=en&user=QHp7CtQAAAAJ" target="_blank"><i
-                    class="fas fa-graduation-cap"></i></a>
-            <a href="https://linkedin.com/in/MehdiH7" target="_blank"><i class="fab fa-linkedin"></i></a>
-        </div>
-        
-        <footer>
-            <p>&copy; 2025 Mehdi Houshmand. All rights reserved.</p>
+        <!-- Modern Footer -->
+        <footer class="modern-footer">
+            <div class="footer-container">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <span class="logo-text">MH</span>
+                        </div>
+                        <p class="footer-description">
+                            AI Researcher & Developer passionate about building the future through innovative technology solutions.
+                        </p>
+                        <div class="social-links">
+                            <a href="https://github.com/MehdiH7" target="_blank" class="social-link">
+                                <i class="fab fa-github"></i>
+                                <span>GitHub</span>
+                            </a>
+                            <a href="https://scholar.google.com/citations?hl=en&user=QHp7CtQAAAAJ" target="_blank" class="social-link">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Google Scholar</span>
+                            </a>
+                            <a href="https://linkedin.com/in/MehdiH7" target="_blank" class="social-link">
+                                <i class="fab fa-linkedin"></i>
+                                <span>LinkedIn</span>
+                            </a>
+                            <a href="https://orcid.org/0009-0008-4616-4592" target="_blank" class="social-link">
+                                <i class="fab fa-orcid"></i>
+                                <span>ORCID</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="footer-links">
+                        <div class="footer-column">
+                            <h4>Quick Links</h4>
+                            <ul>
+                                <li><a href="#" data-content="apps">My Apps</a></li>
+                                <li><a href="#" data-content="projects">Publications</a></li>
+                                <li><a href="#" data-content="experience">Experience</a></li>
+                                <li><a href="#" data-content="contact">Contact</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-column">
+                            <h4>Research Areas</h4>
+                            <ul>
+                                <li>Computer Vision</li>
+                                <li>Machine Learning</li>
+                                <li>AI in Sports</li>
+                                <li>Multimedia Systems</li>
+                            </ul>
+                        </div>
+                        <div class="footer-column">
+                            <h4>Contact Info</h4>
+                            <ul>
+                                <li><i class="fas fa-envelope"></i> mehdi@forzasys.com</li>
+                                <li><i class="fas fa-map-marker-alt"></i> Oslo, Norway</li>
+                                <li><i class="fas fa-university"></i> PhD Candidate</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Mehdi Houshmand. All rights reserved.</p>
+                    <p class="footer-tagline">Building the future with AI & Research</p>
+                </div>
+            </div>
         </footer>
 
         <script src="scripts.js"></script>
