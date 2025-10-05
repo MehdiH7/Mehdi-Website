@@ -9,21 +9,104 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" href="mehdi3.jpg" type="image/x-icon">
-    <!-- Import map for Three.js modules -->
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-            }
-        }
-    </script>
+    <!-- BIOS mode: removed Three.js importmap -->
 </head>
 
 
 <body>
     <!-- 3D Background Canvas -->
     <div id="bg-canvas"></div>
+    
+    <!-- BIOS Setup Utility Root -->
+    <div id="bios-root" class="bios-root" role="application" aria-label="BIOS Setup Utility">
+        <div class="bios-screen">
+            <div class="bios-topbar">
+                <div class="bios-brand">BIOS Setup Utility</div>
+                <div class="bios-product">User: Mehdi Houshmand</div>
+                <div class="bios-clock" id="bios-clock"></div>
+            </div>
+            <div class="bios-tabs" role="tablist">
+                <button class="bios-tab active" data-tab="main">Main</button>
+                <button class="bios-tab" data-tab="apps">Apps</button>
+                <button class="bios-tab" data-tab="publications">Publications</button>
+                <button class="bios-tab" data-tab="experience">Experience</button>
+                <button class="bios-tab" data-tab="contact">Contact</button>
+                <button class="bios-tab" data-tab="exit">Exit</button>
+            </div>
+            <div class="bios-body">
+                <div class="bios-panel active" id="panel-main" role="tabpanel">
+                    <ul class="bios-list" id="list-main">
+                        <li class="bios-option" data-help="Your personal information.">Name: Mehdi Houshmand</li>
+                        <li class="bios-option" data-help="Professional title.">Title: AI Researcher & Developer</li>
+                        <li class="bios-option" data-link="mailto:mehdi@forzasys.com" data-help="Press Enter to email.">Email: mehdi@forzasys.com</li>
+                        <li class="bios-option" data-link="https://mehdi.cam" data-help="Open mehdi.cam">Website: mehdi.cam</li>
+                        <li class="bios-option" data-toggle="theme" data-help="Toggle color theme between Blue and Amber.">Theme: <span class="bios-value" id="bios-theme-value">Blue</span></li>
+                    </ul>
+                </div>
+                <div class="bios-panel" id="panel-apps" role="tabpanel">
+                    <ul class="bios-list" id="list-apps">
+                        <li class="bios-option" data-link="https://github.com/simula/SoccerSum" data-help="Open on GitHub.">SoccerSum — Multimodal summarization</li>
+                        <li class="bios-option" data-link="https://github.com/simula/PlayerTV/tree/main/GUI" data-help="Open on GitHub.">PlayerTV — Player-specific highlights</li>
+                        <li class="bios-option" data-link="https://www.forzasys.com" data-help="Open Forzasys">SmartCrop — AI-based cropping (Forzasys)</li>
+                    </ul>
+                </div>
+                <div class="bios-panel" id="panel-publications" role="tabpanel">
+                    <ul class="bios-list bios-compact" id="list-publications">
+                        <li class="bios-option" data-link="https://doi.org/10.1109/ACCESS.2024.3449152" data-help="Open DOI.">2024 AI-Based Cropping of Ice Hockey Videos for Different Social Media Representations</li>
+                        <li class="bios-option" data-link="https://doi.org/10.1145/3625468.3652197" data-help="Open DOI.">2024 Multimodal AI-Based Summarization and Storytelling for Soccer on Social Media</li>
+                        <li class="bios-option" data-link="https://doi.org/10.1145/3625468.3652180" data-help="Open DOI.">2024 The SoccerSum Dataset for Automated Detection, Segmentation, and Tracking</li>
+                        <li class="bios-option" data-link="https://doi.org/10.48550/arXiv.2405.07354" data-help="Open arXiv.">2024 SoccerNet-Echoes: A Soccer Game Audio Commentary Dataset</li>
+                        <li class="bios-option" data-link="https://doi.org/10.1007/978-3-031-53302-0_22" data-help="Open DOI.">2024 AI-Based Cropping of Soccer Videos for Different Social Media Representations</li>
+                        <li class="bios-option" data-link="https://doi.org/10.1145/3625468.3652195" data-help="Open DOI.">2024 SmartCrop-H: AI-Based Cropping of Ice Hockey Videos</li>
+                        <li class="bios-option" data-link="https://doi.org/10.1142/S1793351X24450028" data-help="Open DOI.">2024 AI-Based Cropping of Sport Videos using SmartCrop</li>
+                        <li class="bios-option" data-link="https://doi.org/10.48550/arXiv.2407.16076" data-help="Open arXiv.">2024 PLayerTV: Advanced Player Tracking and Identification for Automatic Soccer Highlight Clips</li>
+                        <li class="bios-option" data-link="https://doi.org/10.1145/3638036.3640799" data-help="Open DOI.">2024 AI-Based Sports Highlight Generation for Social Media</li>
+                        <li class="bios-option" data-link="https://doi.org/10.1109/ISM59092.2023.00009" data-help="Open DOI.">2023 SmartCrop: AI-Based Cropping of Soccer Videos</li>
+                        <li class="bios-option" data-link="https://doi.org/10.48550/arXiv.2310.12328" data-help="Open arXiv.">2023 Soccer on Social Media</li>
+                        <li class="bios-option" data-link="https://civilica.com/doc/788903" data-help="Open Civilica.">2018 Advanced two dimensional structural models for smart wing</li>
+                        <li class="bios-option" data-link="https://civilica.com/doc/529214" data-help="Open Civilica.">2018 Effect of irrigation with treated wastewater on vegetation</li>
+                        <li class="bios-option" data-link="https://scholar.google.com/citations?user=QHp7CtQAAAAJ" data-help="Open full list on Google Scholar.">Open full publications ›</li>
+                    </ul>
+                </div>
+                <div class="bios-panel" id="panel-experience" role="tabpanel">
+                    <ul class="bios-list" id="list-experience">
+                        <li class="bios-option" data-help="Current role.">Forzasys AS — Developer (2023–Now)</li>
+                        <li class="bios-option" data-help="Summer Internship.">Forzasys AS — AI/ML Intern (2023)</li>
+                        <li class="bios-option" data-help="Teaching Assistant.">OsloMet — TA MEK1000 & DAVE3705</li>
+                        <li class="bios-option" data-help="Freelance Web Developer.">AOTW — Freelance Web Developer</li>
+                    </ul>
+                </div>
+                <div class="bios-panel" id="panel-contact" role="tabpanel">
+                    <ul class="bios-list" id="list-contact">
+                        <li class="bios-option" data-link="mailto:mehdi@forzasys.com" data-help="Send email.">Email: mehdi@forzasys.com</li>
+                        <li class="bios-option" data-link="https://www.instagram.com/Mehd7" data-help="Open Instagram.">Instagram: @Mehd7</li>
+                        <li class="bios-option" data-link="https://www.linkedin.com/in/Mehdih7" data-help="Open LinkedIn.">LinkedIn: /in/Mehdih7</li>
+                        <li class="bios-option" data-link="https://github.com/Mehdih7" data-help="Open GitHub.">GitHub: Mehdih7</li>
+                        <li class="bios-option" data-link="https://orcid.org/0009-0008-4616-4592" data-help="Open ORCID.">ORCID: 0009-0008-4616-4592</li>
+                    </ul>
+                </div>
+                <div class="bios-panel" id="panel-exit" role="tabpanel">
+                    <ul class="bios-list" id="list-exit">
+                        <li class="bios-option" data-action="save" data-help="Save settings and show a toast.">Save & Exit (F10)</li>
+                        <li class="bios-option" data-action="defaults" data-help="Restore default settings.">Load Optimized Defaults (F9)</li>
+                        <li class="bios-option" data-action="quit" data-help="Return to previous UI (not available).">Exit Without Saving (Esc)</li>
+                    </ul>
+                </div>
+                <div class="bios-help" id="bios-help">
+                    <div class="help-title">Item Specific Help</div>
+                    <div class="help-content" id="help-content">Use arrow keys to navigate. Enter to select.</div>
+                </div>
+            </div>
+            <div class="bios-footer">
+                <span>F1: Help</span>
+                <span>Enter: Select</span>
+                <span>Esc: Exit</span>
+                <span>F9: Defaults</span>
+                <span>F10: Save & Exit</span>
+            </div>
+            <div class="bios-toast" id="bios-toast" role="status" aria-live="polite"></div>
+        </div>
+    </div>
     
     <!-- Scroll Progress Indicator -->
     <div id="scroll-progress"></div>
@@ -604,7 +687,6 @@
         </footer>
 
         <script src="scripts.js"></script>
-        <script type="module" src="background.js"></script>
     </div>
 </body>
 
